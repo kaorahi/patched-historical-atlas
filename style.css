@@ -120,6 +120,24 @@ img {
 #year-arrow-left,#year-arrow-right {
 	cursor: pointer;
 }
+#toast {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	pointer-events: none;
+}
+#toast p {
+	font-size: min(80vh, 40vw);
+	color: black;
+	z-index: 9;
+	position: relative;
+}
 
 .region {
 	position: absolute;

@@ -159,6 +159,7 @@ function Map()
 			}
 		}
 		update_url();
+		toast(data.year);
 	}
 
 	// 全Regionから、指定した年に含まれるものだけを抽出
@@ -269,6 +270,19 @@ function Map()
 		} else if (data.map_y > maxY) {
 			data.map_y = maxY;
 		}
+	}
+
+	// https://github.com/kaorahi/lizgoban/releases/tag/v0.6.0-pre2
+	// から流用
+	let last_toast_message = null;
+	let last_toast_animation = null;
+	function toast(message) {
+		if (message === last_toast_message) {return;}
+		last_toast_message = message;
+		last_toast_animation && last_toast_animation.finish();
+		document.getElementById('toast_message').textContent = message;
+		const keyframes = [{opacity: 0.2}, {opacity: 0.2}, {opacity: 0}];
+		last_toast_animation = document.getElementById('toast').animate(keyframes, 1000);
 	}
 
 	function update_url() {
