@@ -137,6 +137,8 @@ function YearBar()
 		switch (e.key) {
 		case 'ArrowLeft': case ',': case '<': increment_year(- step); break;
 		case 'ArrowRight': case '.': case '>': increment_year(step); break;
+		case '[': increment_year(-1); break;
+		case ']': increment_year(+1); break;
 		case 'Home': data.year = -4000; break;
 		case 'End': data.year = MAX_YEAR; break;
 		case '0': data.year = 1; break;
