@@ -72,6 +72,13 @@ function YearBar()
 		cursor.style.left = ((yr + 200) * scale_width / 9400 + 26) + 'px';
 	}
 
+	function increment_year(delta) {
+		const old_year = data.year;
+		const new_year = data.year + delta;
+		const across_zero = (Math.sign(old_year) !== Math.sign(new_year));
+		data.year = new_year + (across_zero ? Math.sign(delta) : 0);
+	}
+
 	this.onchanged = function(f)
 	{
 		on_changed_handler = f;
@@ -118,11 +125,11 @@ function YearBar()
 		if (e.target.id === 'year-input') {return;}
 		const step = e.shiftKey ? 100 : e.ctrlKey ? 1 : 10;
 		switch (e.key) {
-		case 'ArrowLeft': case ',': case '<': data.year -= step; break;
-		case 'ArrowRight': case '.': case '>': data.year += step; break;
+		case 'ArrowLeft': case ',': case '<': increment_year(- step); break;
+		case 'ArrowRight': case '.': case '>': increment_year(step); break;
 		case 'Home': data.year = -4000; break;
 		case 'End': data.year = MAX_YEAR; break;
-		case '0': data.year = 0; break;
+		case '0': data.year = 1; break;
 		case '1': data.year = 1000; break;
 		case 'Enter': year_text.dispatchEvent(new Event('mousedown')); return;
 		default: return;
