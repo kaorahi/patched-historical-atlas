@@ -10,12 +10,12 @@ This is a copy of [World Historical Atlas](http://x768.com/w/twha.en) with addit
 
 ## Usage
 
-* Download the original twha5.zip (September 23, 2019 1:34 PM UTC) from [World Historical Atlas](http://x768.com/w/twha.en) and expand it.
+* Download the original twha5.zip (September 23, 2019 1:34 PM UTC) from [World Historical Atlas](http://x768.com/w/twha.en) and unzip it.
 * Download patched-historical-atlas-main.zip as follows.
   * Open https://github.com/kaorahi/patched-historical-atlas .
   * Click the green "Code" button.
   * Select "Download ZIP".
-* Expand patched-historical-atlas-main.zip and copy the all files in patched-historical-atlas-main to the original twha5 (overwrite).
+* Unzip patched-historical-atlas-main.zip and copy the all files in patched-historical-atlas-main to the original twha5 (overwrite).
 * Open index.html in twha5 with Firefox, Chrome, etc. to start browsing the atlas.
 
 ## Keyboard Shortcuts
