@@ -17,6 +17,13 @@ const data = {
 	lang: 'ja',
 };
 
+new URLSearchParams(location.search).forEach((value, key) => {
+	switch (typeof data[key]) {
+	case "string": data[key] = value; break;
+	case "number": data[key] = value | 0; break;
+	}
+});
+
 let is_dragging_year = false;
 
 </script>
