@@ -284,6 +284,20 @@ function Map()
 		history.replaceState(null, document.title, url);
 	}
 
+	function push_url() {
+		history.pushState(null, document.title, location.href);
+	}
+
+	document.addEventListener('keydown', e => {
+		if (e.ctrlKey && e.key === ' ') {
+			push_url();
+			toast('');
+			toast(data.year);
+		}
+	});
+
+	window.addEventListener('popstate', e => location.reload());
+
 	this.set_size = function(width, height)
 	{
 		curWidth = width;
