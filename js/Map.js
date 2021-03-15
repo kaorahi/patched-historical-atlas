@@ -158,6 +158,7 @@ function Map()
 				}
 			}
 		}
+		update_url();
 	}
 
 	// 全Regionから、指定した年に含まれるものだけを抽出
@@ -268,6 +269,19 @@ function Map()
 		} else if (data.map_y > maxY) {
 			data.map_y = maxY;
 		}
+	}
+
+	function update_url() {
+		const recorded_types = ['string', 'number'];
+		const params = new URLSearchParams('');
+		Object.keys(data).forEach(key => {
+			const value = data[key];
+			if (recorded_types.includes(typeof value)) {
+				params.append(key, data[key]);
+			}
+		});
+		const url = location.protocol + '//' + location.host + location.pathname + '?' + params.toString();
+		history.replaceState(null, document.title, url);
 	}
 
 	this.set_size = function(width, height)
