@@ -144,6 +144,8 @@ function YearBar()
 		case '0': data.year = 1; break;
 		case '1': data.year = 1000; break;
 		case 'Enter': year_text.dispatchEvent(new Event('mousedown')); return;
+		case 'z': window.dispatchEvent(new WheelEvent('mousewheel', {deltaY: -1})); return;
+		case 'Z': case 'x': window.dispatchEvent(new WheelEvent('mousewheel', {deltaY: +1})); return;
 		default: return;
 		}
 		update_cursor();
