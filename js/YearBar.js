@@ -85,6 +85,15 @@ function YearBar()
 	};
 	this.update = update_cursor;
 
+	document.addEventListener('mouseup', e => {is_dragging_year = false;});
+	document.addEventListener('mouseleave', e => {is_dragging_year = false;});
+	document.addEventListener('mousemove', e => {
+		if (is_dragging_year) {
+			year_bar.dispatchEvent(new MouseEvent('mousedown', {clientX: e.clientX}));
+		}
+		e.preventDefault();
+	});
+
 	year_bar.addEventListener('mousedown', e =>
 	{
 		let xpos = e.clientX;
@@ -104,6 +113,7 @@ function YearBar()
 		if (on_changed_handler) {
 			on_changed_handler();
 		}
+		is_dragging_year = true;
 	});
 	arrow_l.addEventListener('mouseenter', function(e)
 	{

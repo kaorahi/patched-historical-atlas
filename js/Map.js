@@ -307,7 +307,7 @@ function Map()
 	});
 	infoLayer.addEventListener('mousemove', function(e)
 	{
-		if (e.buttons != 0 && (mousedown_x !== e.clientX || mousedown_y !== e.clientY)) {
+		if (e.buttons != 0 && !is_dragging_year && (mousedown_x !== e.clientX || mousedown_y !== e.clientY)) {
 			// マウスドラッグによるスクロール
 			data.map_x += mousedown_x - e.clientX;
 			data.map_y += mousedown_y - e.clientY;
