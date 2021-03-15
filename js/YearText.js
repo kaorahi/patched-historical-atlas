@@ -143,6 +143,9 @@ function YearText()
 	document.getElementById('year').addEventListener('submit', function(e) {
 	    enter_year_text();
 	    e.preventDefault();
+
+	    // 以後のキー操作が混乱しないように（たとえば Esc キーの挙動）
+	    year_input.blur();
 	});
 
 	this.update();

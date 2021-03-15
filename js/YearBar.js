@@ -9,6 +9,7 @@ function YearBar()
 	const arrow_r = document.getElementById('year-arrow-right');
 	const scale = document.getElementById('year-bar-scale');
 	const cursor = document.getElementById('year-bar-cursor');
+	const year_text = document.getElementById('year-text');
 	let scale_width = 1;
 	let on_changed_handler = null;
 	this.SIZE = _SIZE;
@@ -112,5 +113,23 @@ function YearBar()
 	arrow_r.addEventListener('mouseleave', function(e)
 	{
 		arrow_r.src = 'img/arrow-right.png';
+	});
+	document.addEventListener('keydown', e => {
+		if (e.target.id === 'year-input') {return;}
+		const step = e.shiftKey ? 100 : e.ctrlKey ? 1 : 10;
+		switch (e.key) {
+		case 'ArrowLeft': case ',': case '<': data.year -= step; break;
+		case 'ArrowRight': case '.': case '>': data.year += step; break;
+		case 'Home': data.year = -4000; break;
+		case 'End': data.year = MAX_YEAR; break;
+		case '0': data.year = 0; break;
+		case '1': data.year = 1000; break;
+		case 'Enter': year_text.dispatchEvent(new Event('mousedown')); return;
+		default: return;
+		}
+		update_cursor();
+		if (on_changed_handler) {
+			on_changed_handler();
+		}
 	});
 }
