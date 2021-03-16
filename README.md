@@ -1,5 +1,7 @@
 # Patched Historical Atlas - interactive world map (4000BC-20XX, every year) on web browser
 
+<img src="screenshot.gif">
+
 ## What is this?
 
 This is just a modification to [World Historical Atlas](http://x768.com/w/twha.en) for some convenient features.
