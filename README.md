@@ -17,7 +17,7 @@ This is just a modification to [World Historical Atlas](http://x768.com/w/twha.e
   * Open https://github.com/kaorahi/patched-historical-atlas .
   * Click the green "Code" button.
   * Select "Download ZIP".
-* Unzip patched-historical-atlas-main.zip and copy the all files in patched-historical-atlas-main to the original twha5 (overwrite).
+* Unzip patched-historical-atlas-main.zip and copy all the files in patched-historical-atlas-main to the original twha5 (overwrite).
 * Open index.html in twha5 with Firefox, Chrome, etc. to start browsing the atlas.
 
 ## Keyboard Shortcuts
