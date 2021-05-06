@@ -79,11 +79,11 @@ function Region(a)
 		let year = data.year;
 		let title = null;
 		let i;
+		let prev_region_name0 = null;
 
 		// 国名
 		for (i = 3; i < a.length && a[i].length > 3; i++) {
 			let b = a[i];
-			region_period = [b[0], b[1]];
 			flag = b[2];
 			if (b[3]) {
 				set_default_name(b, 3);
@@ -102,9 +102,24 @@ function Region(a)
 				this.pos_y = b[10];
 				this.disp_level = b[11];
 			}
+			if (region_name[0] !== prev_region_name0) {
+				prev_region_name0 = region_name[0];
+				region_period[0] = b[0];
+			}
+			region_period[1] = b[1];
 			if (year < b[1]) {
 				break;
 			}
+		}
+		for (; i < a.length && a[i].length > 3; i++) {
+			let b = a[i];
+			if (b[3]) {
+				set_default_name(b, 3);
+				if (b[3] !== prev_region_name0) {
+					break;
+				}
+			}
+			region_period[1] = b[1];
 		}
 		for (; i < a.length && a[i].length > 3; i++) {
 		}
