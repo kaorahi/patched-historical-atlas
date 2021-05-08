@@ -28,6 +28,22 @@
 		}
 	};
 
+	function zoom(delta) {
+		if (delta > 0) {
+			if (data.zoom < 4) {
+				data.zoom++;
+				zoom_bar.update();
+				map.update();
+			}
+		} else if (delta < 0) {
+			if (data.zoom > 0) {
+				data.zoom--;
+				zoom_bar.update();
+				map.update();
+			}
+		}
+	}
+
 	function resize()
 	{
 		let body = document.getElementsByTagName('body')[0];
@@ -85,18 +101,13 @@
 	})(function(e)
 	{
 		let delta = e.wheelDelta ? e.wheelDelta : e.deltaY ? -e.deltaY : -e.detail;
-		if (delta > 0) {
-			if (data.zoom < 4) {
-				data.zoom++;
-				zoom_bar.update();
-				map.update();
-			}
-		} else if (delta < 0) {
-			if (data.zoom > 0) {
-				data.zoom--;
-				zoom_bar.update();
-				map.update();
-			}
+		zoom(delta);
+	});
+
+	document.addEventListener('keydown', e => {
+		switch (e.key) {
+		case 'z': zoom(+1); break;
+		case 'Z': case 'x': zoom(-1); break;
 		}
 	});
 
