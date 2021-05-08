@@ -272,6 +272,14 @@ function Map()
 		}
 	}
 
+	function scroll(dx, dy) {
+		data.map_x += dx;
+		data.map_y += dy;
+		limit_map_center();
+		update_map();
+		update_info();
+	}
+
 	// https://github.com/kaorahi/lizgoban/releases/tag/v0.6.0-pre2
 	// から流用
 	let last_toast_message = null;
@@ -303,10 +311,17 @@ function Map()
 	}
 
 	document.addEventListener('keydown', e => {
-		if (e.ctrlKey && e.key === ' ') {
-			push_url();
-			toast('');
-			toast(data.year);
+		const u = Math.round(Math.min(window.innerWidth, window.innerHeight) * 0.1);
+		switch (e.key) {
+		case ' ': e.ctrlKey && (push_url(), toast(''), toast(data.year)); break;
+		case 'h': scroll(-u, 0); break;
+		case 'j': scroll(0, +u); break;
+		case 'k': scroll(0, -u); break;
+		case 'l': scroll(+u, 0); break;
+		case 'y': scroll(-u, -u); break;
+		case 'u': scroll(+u, -u); break;
+		case 'b': scroll(-u, +u); break;
+		case 'n': scroll(+u, +u); break;
 		}
 	});
 
@@ -351,13 +366,9 @@ function Map()
 	{
 		if (e.buttons != 0 && !is_dragging_year && (mousedown_x !== e.clientX || mousedown_y !== e.clientY)) {
 			// マウスドラッグによるスクロール
-			data.map_x += mousedown_x - e.clientX;
-			data.map_y += mousedown_y - e.clientY;
-			limit_map_center();
+			scroll(mousedown_x - e.clientX, mousedown_y - e.clientY);
 			mousedown_x = e.clientX;
 			mousedown_y = e.clientY;
-			update_map();
-			update_info();
 		}
         e.preventDefault();
 	});
