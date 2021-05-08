@@ -181,7 +181,7 @@ function Region(a)
 					html = '<img src="f/0.png" alt="">';
 				}
 				html += '<div>' + a_title[lang] + '</div><div>' + a_person[3 + lang] + '</div>';
-				html += period_bar(a_person[0], a_person[1], 10, 0.5, '#f88', '#88f', 'padding-top: 0;');
+				html += period_bar(a_person[0], a_person[1], 10, 0.5, '#484', '#6c6', 'padding-top: 0;');
 				item.innerHTML = html;
 				body.appendChild(item);
 			}
