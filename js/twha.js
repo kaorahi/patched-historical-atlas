@@ -106,8 +106,8 @@
 
 	document.addEventListener('keydown', e => {
 		switch (e.key) {
-		case 'z': zoom(+1); break;
-		case 'Z': case 'x': zoom(-1); break;
+		case 'z': case 'i': zoom(+1); break;
+		case 'Z': case 'x': case 'o': zoom(-1); break;
 		}
 	});
 

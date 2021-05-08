@@ -29,7 +29,7 @@ This is just a modification to [World Historical Atlas](http://x768.com/w/twha.e
 * `[` / `]`: previous/next year
 * `Home` / `0` / `1` / `End`: jump to the oldest year/1 A.D./1000 A.D./the newest year
 * `Enter`: input the year directly as if you clicked the year at the top right
-* `z` / `Z` (or `x`): zoom in/out
+* `z` / `Z` (or `z` / `x` or `i` / `o`): zoom in/out
 * `Ctrl-Space`: put the "current view" to the browser history so that you can go back to it later by `Back` button of the browser
 
 ## License
