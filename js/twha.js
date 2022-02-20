@@ -60,6 +60,11 @@
 		map.update();
 	}
 
+	function open_new_tab(url)
+	{
+		window.open(url || location.href, '_blank');
+	}
+
 	year_bar.onchanged(function()
 	{
 		year_text.update();
@@ -108,6 +113,8 @@
 		switch (e.key) {
 		case 'z': case 'i': zoom(+1); break;
 		case 'Z': case 'x': case 'o': zoom(-1); break;
+		case 'd': open_new_tab(); break;
+		case '?': open_new_tab('HELP.md'); break;
 		}
 	});
 
