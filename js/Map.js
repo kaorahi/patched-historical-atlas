@@ -372,4 +372,11 @@ function Map()
 		}
         e.preventDefault();
 	});
+	infoLayer.addEventListener('touchstart', function(e)
+	{
+		const t = e.changedTouches[0];  // ignore multi-touch
+		const {innerWidth, innerHeight} = window
+		const shift = (z, size) => z - size / 2
+		scroll(shift(t.clientX, innerWidth), shift(t.clientY, innerHeight))
+	});
 }
