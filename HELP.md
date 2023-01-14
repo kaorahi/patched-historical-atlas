@@ -14,3 +14,7 @@
 * `d`: duplicate tab
 * `C` / `D` / `Y`: open Wikipedia for this century/decade/year (Only Japanese is supported at present.)
 * `?`: help
+
+## Touch screen
+
+* tap: center the point
