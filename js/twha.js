@@ -65,6 +65,59 @@
 		window.open(url || location.href, '_blank');
 	}
 
+	const wikipedia_url = {
+		ja: {
+			base: 'https://ja.wikipedia.org/wiki/',
+			century: '{___}%E4%B8%96%E7%B4%80',
+			decade: '{___}%E5%B9%B4%E4%BB%A3',
+			year: '{___}%E5%B9%B4',
+			bc_century: '%E7%B4%80%E5%85%83%E5%89%8D{___}%E4%B8%96%E7%B4%80',
+			bc_decade: '%E7%B4%80%E5%85%83%E5%89%8D{___}%E5%B9%B4%E4%BB%A3',
+			bc_year: '%E7%B4%80%E5%85%83%E5%89%8D{___}%E5%B9%B4',
+		},
+		en: {
+			// not yet
+			// https://en.wikipedia.org/wiki/1st_century
+			// https://en.wikipedia.org/wiki/0s
+			// https://en.wikipedia.org/wiki/AD_1
+			// https://en.wikipedia.org/wiki/1st_century_BC
+			// https://en.wikipedia.org/wiki/0s_BC
+			// https://en.wikipedia.org/wiki/1_BC
+		},
+		zh: {
+			// not yet
+		},
+	}
+
+	function open_wikipedia(key, calculator)
+	{
+		const is_bc = (data.year < 0)
+		const val = calculator(Math.abs(data.year))
+		const u = wikipedia_url[data.lang]
+		if (!u.base) {
+			alert("Unsupported.")
+			return
+		}
+		const k = is_bc ? `bc_${key}` : key
+		const page = u[k].replace('{___}', val)
+		open_new_tab(u.base + page)
+	}
+
+	function open_wikipedia_century()
+	{
+		open_wikipedia('century', y => 1 + Math.floor((y - 1) / 100))
+	}
+
+	function open_wikipedia_decade()
+	{
+		open_wikipedia('decade', y => 10 * Math.floor(y / 10))
+	}
+
+	function open_wikipedia_year()
+	{
+		open_wikipedia('year', y => y)
+	}
+
 	year_bar.onchanged(function()
 	{
 		year_text.update();
@@ -114,6 +167,9 @@
 		case 'z': case 'i': zoom(+1); break;
 		case 'Z': case 'x': case 'o': zoom(-1); break;
 		case 'd': open_new_tab(); break;
+		case 'C': open_wikipedia_century(); break;
+		case 'D': open_wikipedia_decade(); break;
+		case 'Y': open_wikipedia_year(); break;
 		case '?': open_new_tab('HELP.md'); break;
 		}
 	});

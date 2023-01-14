@@ -12,4 +12,5 @@
 * `z` / `Z` (or `z` / `x` or `i` / `o`): zoom in/out
 * `Ctrl-Space`: put the "current view" to the browser history so that you can go back to it later by `Back` button of the browser
 * `d`: duplicate tab
+* `C` / `D` / `Y`: open Wikipedia for this century/decade/year (Only Japanese is supported at present.)
 * `?`: help
