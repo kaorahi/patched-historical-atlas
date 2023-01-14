@@ -141,8 +141,8 @@ function YearBar()
 		case ']': increment_year(+1); break;
 		case 'Home': data.year = -4000; break;
 		case 'End': data.year = MAX_YEAR; break;
-		case '0': data.year = 1; break;
-		case '1': data.year = 1000; break;
+		case '0': !e.ctrlKey && (data.year = 1); break;
+		case '1': !e.ctrlKey && (data.year = 1000); break;
 		case 'Enter': year_text.dispatchEvent(new Event('mousedown')); return;
 		default: return;
 		}
