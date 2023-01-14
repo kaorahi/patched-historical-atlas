@@ -306,10 +306,6 @@ function Map()
 		history.replaceState(null, document.title, url);
 	}
 
-	function push_url() {
-		history.pushState(null, document.title, location.href);
-	}
-
 	document.addEventListener('keydown', e => {
 		const u = Math.round(Math.min(window.innerWidth, window.innerHeight) * 0.1);
 		switch (e.key) {
