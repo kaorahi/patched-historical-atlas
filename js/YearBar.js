@@ -139,6 +139,11 @@ function YearBar()
 		case 'ArrowRight': case '.': case '>': increment_year(step); break;
 		case '[': increment_year(-1); break;
 		case ']': increment_year(+1); break;
+		case 'A': e.ctrlKey && (e.preventDefault(), toggle_auto()); break;
+		case '(': e.ctrlKey && accelerate_auto(1/2); break;
+		case ')': e.ctrlKey && accelerate_auto(2); break;
+		case '|': e.ctrlKey && reset_auto_speed(); break;
+		case 'Escape': stop_auto(); break;
 		case 'Home': goto_year(-4000); break;
 		case 'End': goto_year(MAX_YEAR); break;
 		case '0': !e.ctrlKey && goto_year(1); break;
@@ -155,4 +160,29 @@ function YearBar()
 		push_url();
 		data.year = y;
 	}
+	const default_auto_millisec = 1000;
+	let auto_millisec = default_auto_millisec, auto_timer = null;
+	function start_auto() {
+		stop_auto();
+		document.getElementById('auto-sec').innerText = `${auto_millisec / 1000}sec ▶ `;
+		auto_timer = setTimeout(() => {
+			increment_year(1);
+			update_cursor();
+			on_changed_handler && on_changed_handler();
+			data.year < MAX_YEAR ? start_auto() : stop_auto();
+		}, auto_millisec);
+	}
+	function stop_auto() {
+		clearTimeout(auto_timer);
+		auto_timer = null;
+		document.getElementById('auto-sec').innerText = '';
+	}
+	function toggle_auto() {
+		auto_timer ? stop_auto() : start_auto();
+	}
+	function accelerate_auto(coef) {
+		auto_millisec /= coef;
+		start_auto();
+	}
+	function reset_auto_speed() {auto_millisec = default_auto_millisec; start_auto();}
 }

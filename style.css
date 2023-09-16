@@ -120,6 +120,12 @@ img {
 #year-arrow-left,#year-arrow-right {
 	cursor: pointer;
 }
+#auto-sec {
+	font-size: 16px;
+	font-weight: bold;
+	animation: blink 0.5s infinite alternate;
+}
+@keyframes blink {0% {opacity: 1;} 100% {opacity: 0.3;}}
 #toast {
 	position: fixed;
 	top: 0;
