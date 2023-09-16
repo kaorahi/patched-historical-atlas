@@ -2,6 +2,10 @@
 
 <img src="screenshot.gif">
 
+## Demo
+
+[Live Demo](https://foxy-null.github.io/history-page/index.html) by [Foxy-null](https://github.com/Foxy-null) ([github](https://github.com/Foxy-null/history-page))
+
 ## What is this?
 
 This is just a modification to [World Historical Atlas](http://x768.com/w/twha.en) for some convenient features.
