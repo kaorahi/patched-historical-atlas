@@ -350,6 +350,7 @@ function Map()
 		for (let i = 0; i < visible_regions.length; i++) {
 			visible_regions[i].update();
 		}
+		update_url();
 	};
 
 	infoLayer.addEventListener('mousedown', function(e)
