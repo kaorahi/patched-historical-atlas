@@ -4,7 +4,7 @@
 
 ## Demo
 
-[Live Demo](https://foxy-null.github.io/history-page/index.html) by [Foxy-null](https://github.com/Foxy-null) ([github](https://github.com/Foxy-null/history-page))
+[Live Demo](https://foxy-null.github.io/history-page/index.html?lang=en) by [Foxy-null](https://github.com/Foxy-null) ([github](https://github.com/Foxy-null/history-page))
 
 ## What is this?
 
