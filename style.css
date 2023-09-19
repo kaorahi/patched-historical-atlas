@@ -169,8 +169,8 @@ img {
 #footer div.dummy-btn {
 	border: solid 1px transparent;
 }
-#footer div[data-state="disabled"] {
-	color: gray;
+#footer div[data-state="disabled"] * {
+	opacity: 0.5;
 }
 #footer div[data-state="hidden"] {
 	display: none;
