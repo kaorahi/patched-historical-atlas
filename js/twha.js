@@ -128,6 +128,7 @@
 	{
 		year_text.update();
 		map.update();
+		update_button();
 	});
 	lang_button.onchanged(function()
 	{
