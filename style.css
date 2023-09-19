@@ -164,6 +164,9 @@ img {
 	align-items: center;
 	justify-content: center;
 }
+#footer div.dummy-btn {
+	border: solid 1px transparent;
+}
 #footer div[data-state="disabled"] {
 	color: gray;
 }
@@ -176,7 +179,7 @@ img {
 	font-weight: bold;
 	animation: blink 0.5s infinite alternate;
 }
-#auto-sec, #pause-btn {
+#auto-sec, #pause-btn * {
 	animation: blink 0.5s infinite alternate;
 }
 @keyframes blink {0% {opacity: 1;} 100% {opacity: 0.3;}}
