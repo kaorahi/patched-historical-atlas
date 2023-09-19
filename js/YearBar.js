@@ -106,9 +106,21 @@ function YearBar()
 
 	document.addEventListener('touchend', e => {is_dragging_year = false;});
 	document.addEventListener('touchcancel', e => {is_dragging_year = false;});
-	document.addEventListener('touchmove', e => onMouseMove(e.changedTouches[0]));
+	document.addEventListener('touchmove', e => {
+		if (e.touches.length !== 1) {
+			is_dragging_year = false;
+			return;
+		}
+		onMouseMove(e.changedTouches[0]);
+	});
 
-	year_bar.addEventListener('touchstart', e => year_bar.dispatchEvent(new MouseEvent('mousedown', {clientX: e.changedTouches[0].clientX})));
+	year_bar.addEventListener('touchstart', e => {
+		if (e.touches.length !== 1) {
+			is_dragging_year = false;
+			return;
+		}
+		year_bar.dispatchEvent(new MouseEvent('mousedown', {clientX: e.changedTouches[0].clientX}));
+	});
 	year_bar.addEventListener('mousedown', e =>
 	{
 		let xpos = e.clientX;
