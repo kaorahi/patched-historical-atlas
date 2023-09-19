@@ -20,8 +20,8 @@ function Map()
 
 	let curWidth, curHeight;
 	let curWidth2, curHeight2;
-	let mousedown_x = 0;
-	let mousedown_y = 0;
+	let mousedown_x = null;
+	let mousedown_y = null;
 	let prev_zoom = data.zoom;
 	let prev_year = -9999;
 
@@ -366,9 +366,15 @@ function Map()
 		mousedown_y = e.clientY;
         e.preventDefault();
 	});
+	infoLayer.addEventListener('mouseup', function(e)
+	{
+		mousedown_x = null;
+		mousedown_y = null;
+        e.preventDefault();
+	});
 	infoLayer.addEventListener('mousemove', function(e)
 	{
-		if (e.buttons != 0 && !is_dragging_year && (mousedown_x !== e.clientX || mousedown_y !== e.clientY)) {
+		if (e.buttons != 0 && !is_dragging_year && mousedown_x !== null && (mousedown_x !== e.clientX || mousedown_y !== e.clientY)) {
 			// マウスドラッグによるスクロール
 			scroll(mousedown_x - e.clientX, mousedown_y - e.clientY);
 			mousedown_x = e.clientX;
