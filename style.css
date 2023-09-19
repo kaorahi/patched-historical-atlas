@@ -141,6 +141,8 @@ img {
 	height: calc(var(--viewport-height) - 48px - 32px);
 	font-size: 3vh;
 	flex-direction: column;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	tap-highlight-color: rgba(0, 0, 0, 0);
 }
 @media (orientation: portrait) {
 	#footer {
@@ -173,6 +175,10 @@ img {
 #footer div[data-state="hidden"] {
 	display: none;
 }
+#footer div:active:not([data-state="disabled"]):not(.dummy-btn) {
+	animation: flash 0.3s;
+}
+@keyframes flash {0% {opacity: 0.3;} 100% {opacity: initial;}}
 
 #auto-sec {
 	font-size: 16px;
