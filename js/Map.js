@@ -388,6 +388,10 @@ function Map()
 			return;
 		}
 		prevPoint = touchedPoint(e);
+		// (workaround for Firefox)
+		// In Firefox, mousemove is fired before mousedown by a tap???
+		mousedown_x = prevPoint.x;
+		mousedown_y = prevPoint.y;
 	}
 	function onTouchMove(e) {
 		if (is_dragging_year || e.touches.length !== 1) {
