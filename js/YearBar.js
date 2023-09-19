@@ -100,7 +100,7 @@ function YearBar()
 	});
 	function onMouseMove(e) {
 		if (is_dragging_year) {
-			year_bar.dispatchEvent(new MouseEvent('mousedown', {clientX: e.clientX}));
+			onMouseDown(e);
 		}
 	}
 
@@ -119,10 +119,10 @@ function YearBar()
 			is_dragging_year = false;
 			return;
 		}
-		year_bar.dispatchEvent(new MouseEvent('mousedown', {clientX: e.changedTouches[0].clientX}));
+		onMouseDown(e.changedTouches[0]);
 	});
-	year_bar.addEventListener('mousedown', e =>
-	{
+	year_bar.addEventListener('mousedown', onMouseDown);
+	function onMouseDown(e) {
 		let xpos = e.clientX;
 		if (xpos < _SIZE) {
 			data.year--;
@@ -138,7 +138,7 @@ function YearBar()
 		}
 		updated();
 		is_dragging_year = true;
-	});
+	}
 	arrow_l.addEventListener('mouseenter', function(e)
 	{
 		arrow_l.src = 'img/arrow-left2.png';
