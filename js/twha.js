@@ -200,6 +200,7 @@
 		} else {
 			set_buttons_state(buttons_in_play, 'hidden');
 			set_buttons_state(buttons_in_pause, '');
+			enable_button_if(data.year < MAX_YEAR, 'play-btn');
 		}
 		enable_button_if(data.zoom < max_zoom, 'zoom-in-btn');
 		enable_button_if(data.zoom > 0, 'zoom-out-btn');

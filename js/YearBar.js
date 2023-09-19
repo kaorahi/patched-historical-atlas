@@ -179,6 +179,9 @@ function YearBar()
 	let auto_millisec = default_auto_millisec, auto_timer = null;
 	function start_auto() {
 		stop_auto();
+		if (data.year >= MAX_YEAR) {
+			return;
+		}
 		document.getElementById('auto-sec').innerText = `${auto_millisec / 1000}sec ▶ `;
 		auto_timer = setTimeout(() => {
 			increment_year(1);
