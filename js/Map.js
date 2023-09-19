@@ -298,8 +298,9 @@ function Map()
 		const params = new URLSearchParams('');
 		Object.keys(data).forEach(key => {
 			const value = data[key];
-			if (recorded_types.includes(typeof value)) {
-				params.append(key, data[key]);
+			const type = typeof value;
+			if (recorded_types.includes(type)) {
+				params.append(key, (type === 'number') ? Math.round(value) : value);
 			}
 		});
 		const url = location.protocol + '//' + location.host + location.pathname + '?' + params.toString();
