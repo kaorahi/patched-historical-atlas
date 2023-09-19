@@ -293,7 +293,13 @@ function Map()
 		last_toast_animation = document.getElementById('toast').animate(keyframes, 1000);
 	}
 
+	let url_timer = null;
 	function update_url() {
+		// skip too frequent updates
+		clearTimeout(url_timer);
+		url_timer = setTimeout(update_url_now, 100);
+	}
+	function update_url_now() {
 		const recorded_types = ['string', 'number'];
 		const params = new URLSearchParams('');
 		Object.keys(data).forEach(key => {
