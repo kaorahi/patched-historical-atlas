@@ -85,6 +85,13 @@ function YearBar()
 	};
 	this.update = update_cursor;
 
+	function updated() {
+		update_cursor();
+		if (on_changed_handler) {
+			on_changed_handler();
+		}
+	}
+
 	document.addEventListener('mouseup', e => {is_dragging_year = false;});
 	document.addEventListener('mouseleave', e => {is_dragging_year = false;});
 	document.addEventListener('mousemove', e => {
@@ -117,10 +124,7 @@ function YearBar()
 			yr -= 4000;
 			data.year = Math.round(yr);
 		}
-		update_cursor();
-		if (on_changed_handler) {
-			on_changed_handler();
-		}
+		updated();
 		is_dragging_year = true;
 	});
 	arrow_l.addEventListener('mouseenter', function(e)
@@ -159,10 +163,7 @@ function YearBar()
 		case 'Enter': year_text.dispatchEvent(new Event('mousedown')); return;
 		default: return;
 		}
-		update_cursor();
-		if (on_changed_handler) {
-			on_changed_handler();
-		}
+		updated();
 	});
 	function goto_year(y) {
 		push_url();
@@ -175,8 +176,7 @@ function YearBar()
 		document.getElementById('auto-sec').innerText = `${auto_millisec / 1000}sec ▶ `;
 		auto_timer = setTimeout(() => {
 			increment_year(1);
-			update_cursor();
-			on_changed_handler && on_changed_handler();
+			updated();
 			data.year < MAX_YEAR ? start_auto() : stop_auto();
 		}, auto_millisec);
 	}
