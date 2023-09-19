@@ -116,13 +116,67 @@ img {
 #year-bar {
 	position: absolute;
 	left: 0px;
+	bottom: 0px;
+	line-height: 0;
+	z-index: 10000;
 }
 #year-arrow-left,#year-arrow-right {
 	cursor: pointer;
 }
+
+#footer {
+	position: fixed;
+	color: #ddd;
+	background-color: #222;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	z-index: 10000;
+	user-select: none;
+}
+#footer {
+	top: 48px;
+	right: 0;
+	width: 9vh;
+	height: calc(100vh - 48px - 32px);
+	font-size: 3vh;
+	flex-direction: column;
+}
+@media (orientation: portrait) {
+	#footer {
+		top: auto;
+		right: auto;
+		bottom: 0;
+		width: 100%;
+		height: 12vw;
+		font-size: 4vw;
+		flex-direction: row;
+	}
+	#year-bar {
+		bottom: 12vw;
+	}
+}
+#footer div {
+	width: 100%;
+	height: 100%;
+	border: solid 1px #ddd;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#footer div[data-state="disabled"] {
+	color: gray;
+}
+#footer div[data-state="hidden"] {
+	display: none;
+}
+
 #auto-sec {
 	font-size: 16px;
 	font-weight: bold;
+	animation: blink 0.5s infinite alternate;
+}
+#auto-sec, #pause-btn {
 	animation: blink 0.5s infinite alternate;
 }
 @keyframes blink {0% {opacity: 1;} 100% {opacity: 0.3;}}

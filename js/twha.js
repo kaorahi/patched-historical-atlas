@@ -28,9 +28,10 @@
 		}
 	};
 
+	const max_zoom = 4;
 	function zoom(delta) {
 		if (delta > 0) {
-			if (data.zoom < 4) {
+			if (data.zoom < max_zoom) {
 				data.zoom++;
 				zoom_bar.update();
 				map.update();
@@ -42,6 +43,7 @@
 				map.update();
 			}
 		}
+		update_button();
 	}
 
 	function resize()
@@ -54,7 +56,6 @@
 
 		map.set_size(screen_width, canbas_h);
 
-		year_bar.set_top(canbas_h);
 		year_bar.set_width(screen_width - year_bar.SIZE * 2);
 
 		map.update();
@@ -173,6 +174,57 @@
 		case '?': open_new_tab('HELP.md'); break;
 		}
 	});
+
+	// footer buttons
+	const buttons_in_pause = ['back3-btn', 'back2-btn', 'back1-btn', 'play-btn', 'fwd1-btn', 'fwd2-btn', 'fwd3-btn'];
+	const buttons_in_play = ['dummy1-btn', 'dummy2-btn', 'dummy3-btn', 'pause-btn', 'slow-btn', 'fast-btn', 'reset-btn'];
+	function button(id) {
+		return document.getElementById(id);
+	}
+	function set_buttons_state(ids, state) {
+		ids.forEach(id => button(id).dataset.state = state);
+	}
+	function enable_button_if(bool, id) {
+		set_buttons_state([id], bool ? '' : 'disabled');
+	}
+	function update_button() {
+		if (year_bar.in_auto()) {
+			set_buttons_state(buttons_in_play, '');
+			set_buttons_state(buttons_in_pause, 'hidden');
+		} else {
+			set_buttons_state(buttons_in_play, 'hidden');
+			set_buttons_state(buttons_in_pause, '');
+		}
+		enable_button_if(data.zoom < max_zoom, 'zoom-in-btn');
+		enable_button_if(data.zoom > 0, 'zoom-out-btn');
+	}
+	function play() {
+		year_bar.start_auto();
+		update_button();
+	}
+	function pause() {
+		year_bar.stop_auto();
+		update_button();
+	}
+	function add_button_handler(id, handler) {
+		button(id).addEventListener('click', handler);
+	}
+	add_button_handler('zoom-out-btn', () => zoom(-1));
+	add_button_handler('zoom-in-btn', () => zoom(+1));
+	add_button_handler('back3-btn', () => year_bar.increment_year(-100));
+	add_button_handler('back2-btn', () => year_bar.increment_year(-10));
+	add_button_handler('back1-btn', () => year_bar.increment_year(-1));
+	add_button_handler('play-btn', play);
+	add_button_handler('fwd1-btn', () => year_bar.increment_year(+1));
+	add_button_handler('fwd2-btn', () => year_bar.increment_year(+10));
+	add_button_handler('fwd3-btn', () => year_bar.increment_year(+100));
+	add_button_handler('pause-btn', pause);
+	add_button_handler('auto-sec', pause);  // for safety
+	add_button_handler('slow-btn', () => year_bar.accelerate_auto(0.5));
+	add_button_handler('fast-btn', () => year_bar.accelerate_auto(2));
+	add_button_handler('reset-btn', year_bar.reset_auto_speed);
+	pause();
+	update_button();
 
 	resize();
 });

@@ -53,6 +53,27 @@ let is_dragging_year = false;
 <div id="year-bar">
 <img id="year-bar-cursor" src="img/year-pos.png" alt=""><img id="year-arrow-left" src="img/arrow-left.png" alt=""><canvas id="year-bar-scale" height="32"></canvas><img id="year-arrow-right" src="img/arrow-right.png" alt="">
 </div>
+<div id="footer">
+ <!-- always -->
+ <div id="zoom-out-btn">🔍-</div>
+ <div id="zoom-in-btn">🔍+</div>
+ <!-- in pause -->
+ <div id="back3-btn">&lt;&lt;&lt;</div>
+ <div id="back2-btn">&lt;&lt;</div>
+ <div id="back1-btn">&lt;</div>
+ <div id="play-btn">▶</div>
+ <div id="fwd1-btn">&gt;</div>
+ <div id="fwd2-btn">&gt;&gt;</div>
+ <div id="fwd3-btn">&gt;&gt;&gt;</div>
+ <!-- in play -->
+ <div id="dummy1-btn" data-state="hidden"></div>
+ <div id="dummy2-btn" data-state="hidden"></div>
+ <div id="dummy3-btn" data-state="hidden"></div>
+ <div id="pause-btn" data-state="hidden">⏸</div>
+ <div id="slow-btn" data-state="hidden">▶-</div>
+ <div id="fast-btn" data-state="hidden">▶+</div>
+ <div id="reset-btn" data-state="hidden">1×</div>
+</div>
 <div id="toast"><p id="toast_message"></p></div>
 </body>
 </html>

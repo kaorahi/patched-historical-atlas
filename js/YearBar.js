@@ -15,10 +15,6 @@ function YearBar()
 	this.SIZE = _SIZE;
 
 
-	this.set_top = function(top)
-	{
-		year_bar.style.top = top + 'px';
-	};
 	this.set_width = function(width)
 	{
 		if (width < 1) {
@@ -203,4 +199,14 @@ function YearBar()
 		start_auto();
 	}
 	function reset_auto_speed() {auto_millisec = default_auto_millisec; start_auto();}
+
+	function with_update(func) {
+		return arg => {func(arg); updated();};
+	}
+	this.increment_year = with_update(increment_year);
+	this.in_auto = () => !!auto_timer;
+	this.start_auto = with_update(start_auto);
+	this.stop_auto = with_update(stop_auto);
+	this.accelerate_auto = with_update(accelerate_auto);
+	this.reset_auto_speed = with_update(reset_auto_speed);
 }
