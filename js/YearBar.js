@@ -98,30 +98,12 @@ function YearBar()
 		onMouseMove(e);
 		e.preventDefault();
 	});
+	year_bar.addEventListener('mousedown', onMouseDown);
 	function onMouseMove(e) {
 		if (is_dragging_year) {
 			onMouseDown(e);
 		}
 	}
-
-	document.addEventListener('touchend', e => {is_dragging_year = false;});
-	document.addEventListener('touchcancel', e => {is_dragging_year = false;});
-	document.addEventListener('touchmove', e => {
-		if (e.touches.length !== 1) {
-			is_dragging_year = false;
-			return;
-		}
-		onMouseMove(e.changedTouches[0]);
-	});
-
-	year_bar.addEventListener('touchstart', e => {
-		if (e.touches.length !== 1) {
-			is_dragging_year = false;
-			return;
-		}
-		onMouseDown(e.changedTouches[0]);
-	});
-	year_bar.addEventListener('mousedown', onMouseDown);
 	function onMouseDown(e) {
 		let xpos = e.clientX;
 		if (xpos < _SIZE) {
@@ -154,6 +136,22 @@ function YearBar()
 	arrow_r.addEventListener('mouseleave', function(e)
 	{
 		arrow_r.src = 'img/arrow-right.png';
+	});
+	document.addEventListener('touchend', e => {is_dragging_year = false;});
+	document.addEventListener('touchcancel', e => {is_dragging_year = false;});
+	document.addEventListener('touchmove', e => {
+		if (e.touches.length !== 1) {
+			is_dragging_year = false;
+			return;
+		}
+		onMouseMove(e.changedTouches[0]);
+	});
+	year_bar.addEventListener('touchstart', e => {
+		if (e.touches.length !== 1) {
+			is_dragging_year = false;
+			return;
+		}
+		onMouseDown(e.changedTouches[0]);
 	});
 	document.addEventListener('keydown', e => {
 		if (e.target.id === 'year-input') {return;}
