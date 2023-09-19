@@ -194,6 +194,7 @@
 		set_buttons_state([id], bool ? '' : 'disabled');
 	}
 	function update_button() {
+		document.body.dataset.hideButtons = data.hide_buttons ? 'yes' : null;
 		if (year_bar.in_auto()) {
 			set_buttons_state(buttons_in_play, '');
 			set_buttons_state(buttons_in_pause, 'hidden');

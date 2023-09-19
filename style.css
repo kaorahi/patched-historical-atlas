@@ -161,6 +161,12 @@ img {
 		bottom: 12vw;
 	}
 }
+[data-hide-buttons="yes"] #footer {
+	display: none;
+}
+[data-hide-buttons="yes"] #year-bar {
+	bottom: 0;
+}
 #footer div {
 	width: 100%;
 	height: 100%;
