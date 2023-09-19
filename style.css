@@ -168,9 +168,11 @@ img {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 #footer div.dummy-btn {
 	border: solid 1px transparent;
+	cursor: default;
 }
 #footer div[data-state="disabled"] * {
 	opacity: 0.5;
