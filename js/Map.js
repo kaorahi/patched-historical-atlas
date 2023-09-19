@@ -376,11 +376,28 @@ function Map()
 		}
         e.preventDefault();
 	});
-	infoLayer.addEventListener('touchstart', function(e)
-	{
+
+	let prevPoint = null;
+	function touchedPoint(e) {
 		const t = e.changedTouches[0];  // ignore multi-touch
-		const {innerWidth, innerHeight} = window
-		const shift = (z, size) => z - size / 2
-		scroll(shift(t.clientX, innerWidth), shift(t.clientY, innerHeight))
-	});
+		return {x: t.clientX, y: t.clientY};
+	}
+	function onTouchStart(e) {
+		if (e.touches.length !== 1) {
+			prevPoint = null;
+			return;
+		}
+		prevPoint = touchedPoint(e);
+	}
+	function onTouchMove(e) {
+		if (is_dragging_year || e.touches.length !== 1) {
+			prevPoint = null;
+			return;
+		}
+		const point = touchedPoint(e);
+		scroll(prevPoint.x - point.x, prevPoint.y - point.y);
+		prevPoint = point;
+	}
+	infoLayer.addEventListener('touchstart', onTouchStart);
+	infoLayer.addEventListener('touchmove', onTouchMove);
 }

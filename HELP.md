@@ -16,7 +16,3 @@
 * `Ctrl-Shift-a` / `Esc`: toggle/stop auto
 * `Ctrl` + `(` / `|` / `)`: accelerate/reset/reduce auto speed
 * `?`: help
-
-## Touch screen
-
-* tap: center the point
