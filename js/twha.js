@@ -58,6 +58,11 @@
 
 		year_bar.set_width(screen_width - year_bar.SIZE * 2);
 
+		// workaround for android:
+		// 100vh includes the browser address bar
+		const viewportHeight = window.innerHeight;
+		document.documentElement.style.setProperty('--viewport-height', `${viewportHeight}px`);
+
 		map.update();
 	}
 

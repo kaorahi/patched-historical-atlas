@@ -138,7 +138,7 @@ img {
 	top: 48px;
 	right: 0;
 	width: 9vh;
-	height: calc(100vh - 48px - 32px);
+	height: calc(var(--viewport-height) - 48px - 32px);
 	font-size: 3vh;
 	flex-direction: column;
 }
