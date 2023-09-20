@@ -321,6 +321,7 @@ function Map()
 		const keyframes = [{opacity: 0.2}, {opacity: 0.2}, {opacity: 0}];
 		last_toast_animation = document.getElementById('toast').animate(keyframes, 1000);
 	}
+	this.toast = toast;
 
 	let url_timer = null;
 	function update_url() {

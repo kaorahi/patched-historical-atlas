@@ -34,8 +34,12 @@
 		zoom_around(null, delta);
 	}
 	function zoom_around(point, delta) {
+		if (delta === 0) {  // avoid useless call on android
+			return;
+		}
 		const new_zoom = Math.max(0, Math.min(data.zoom + delta, max_zoom));
 		if (new_zoom === data.zoom) {
+			map.toast('!');
 			return;
 		}
 		const shift = point ? vector_from_map_center(point) : null;
