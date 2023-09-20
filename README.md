@@ -14,6 +14,7 @@ This is just a modification to [World Historical Atlas](http://x768.com/w/twha.e
 * Enable bookmarking of the "current view" on your browser.
 * Add keyboard shortcuts for forward/backward animations, opening Wikipedia, etc.
 * Add period bars for regions and persons.
+* Add navigation buttons.
 * Enable swipe scroll in touch devices.
 
 ## Usage
