@@ -16,9 +16,9 @@ This is just a modification to [World Historical Atlas](http://x768.com/w/twha.e
 * Add period bars for regions and persons.
 * Add navigation buttons.
 * Enable smooth zoom.
-* Enable swipe scroll in touch devices.
+* Enable swipe scroll on touch devices.
 
-## Usage
+## Setup
 
 * Download the original twha5.zip (September 23, 2019 1:34 PM UTC) from [World Historical Atlas](http://x768.com/w/twha.en) and unzip it.
 * Download patched-historical-atlas-main.zip as follows.
@@ -28,7 +28,7 @@ This is just a modification to [World Historical Atlas](http://x768.com/w/twha.e
 * Unzip patched-historical-atlas-main.zip and copy all the files in patched-historical-atlas-main to the original twha5 (overwrite).
 * Open index.html in twha5 with Firefox, Chrome, etc. to start browsing the atlas.
 
-## Keyboard Shortcuts
+## After Setup
 
 See [HELP](HELP.md).
 
