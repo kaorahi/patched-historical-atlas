@@ -9,7 +9,6 @@ function Map()
 	const MAP_SIZE = 450;
 	const MAP_X = 8;
 	const MAP_Y = 4;
-	const SCALES = [0.5, 1, 2, 4, 8];
 
 	const mpLandCache = new Array(MAP_X * MAP_Y);
 	const mpTertCache = new Array(MAP_X * MAP_Y);
@@ -25,6 +24,10 @@ function Map()
 	let prev_zoom = data.zoom;
 	let prev_year = -9999;
 
+
+	function scale_for(zoom) {
+		return 2**(zoom - 1);
+	}
 
 	function getMapLandPart(i, j)
 	{
@@ -71,15 +74,15 @@ function Map()
 	{
 		// zoomが変化している場合、座標中心も変化する
 		if (prev_zoom !== data.zoom) {
-			data.map_x = Math.round(data.map_x * SCALES[data.zoom] / SCALES[prev_zoom]);
-			data.map_y = Math.round(data.map_y * SCALES[data.zoom] / SCALES[prev_zoom]);
+			data.map_x = Math.round(data.map_x * scale_for(data.zoom) / scale_for(prev_zoom));
+			data.map_y = Math.round(data.map_y * scale_for(data.zoom) / scale_for(prev_zoom));
 			prev_zoom = data.zoom;
 		}
 
 		// マップの表示範囲を計算
 		let curX = data.map_x;
 		let curY = data.map_y;
-		let mapSize = MAP_SIZE * SCALES[data.zoom];
+		let mapSize = MAP_SIZE * scale_for(data.zoom);
 		let maxW = Math.ceil(curWidth / mapSize);
 		let maxH = Math.ceil(curHeight / mapSize);
 
@@ -216,7 +219,7 @@ function Map()
 			visible_regions = [];
 			prev_year = data.year;
 		}
-		let scale = SCALES[data.zoom];
+		let scale = scale_for(data.zoom);
 		let mapSize = MAP_SIZE * scale;
 		let curX = data.map_x;
 		let curY = data.map_y;
@@ -253,7 +256,7 @@ function Map()
 	// スクロール位置を合わせる
 	function limit_map_center()
 	{
-		let mapSize = MAP_SIZE * SCALES[data.zoom];
+		let mapSize = MAP_SIZE * scale_for(data.zoom);
 		let maxX = MAP_X * mapSize;
 		let maxY = MAP_Y * mapSize;
 
@@ -301,12 +304,14 @@ function Map()
 	}
 	function update_url_now() {
 		const recorded_types = ['string', 'number'];
+		const decimals = {zoom: 1};
 		const params = new URLSearchParams('');
 		Object.keys(data).forEach(key => {
 			const value = data[key];
 			const type = typeof value;
 			if (recorded_types.includes(type)) {
-				params.append(key, (type === 'number') ? Math.round(value) : value);
+				const rounded = (type === 'number') ? value.toFixed(decimals[key] || 0) : value;
+				params.append(key, rounded);
 			}
 		});
 		const url = location.protocol + '//' + location.host + location.pathname + '?' + params.toString();

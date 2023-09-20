@@ -29,21 +29,15 @@
 	};
 
 	const max_zoom = 4;
+
 	function zoom(delta) {
-		if (delta > 0) {
-			if (data.zoom < max_zoom) {
-				data.zoom++;
-				zoom_bar.update();
-				map.update();
-			}
-		} else if (delta < 0) {
-			if (data.zoom > 0) {
-				data.zoom--;
-				zoom_bar.update();
-				map.update();
-			}
+		const old_zoom = data.zoom;
+		data.zoom = Math.max(0, Math.min(data.zoom + delta, max_zoom));
+		if (data.zoom !== old_zoom) {
+			zoom_bar.update();
+			map.update();
+			update_button();
 		}
-		update_button();
 	}
 
 	function resize()
@@ -166,13 +160,13 @@
 	})(function(e)
 	{
 		let delta = e.wheelDelta ? e.wheelDelta : e.deltaY ? -e.deltaY : -e.detail;
-		zoom(delta);
+		zoom(Math.sign(delta) * 0.1);
 	});
 
 	document.addEventListener('keydown', e => {
 		switch (e.key) {
-		case 'z': case 'i': zoom(+1); break;
-		case 'Z': case 'x': case 'o': zoom(-1); break;
+		case 'z': case 'i': zoom(+0.5); break;
+		case 'Z': case 'x': case 'o': zoom(-0.5); break;
 		case 'd': open_new_tab(); break;
 		case 'C': open_wikipedia_century(); break;
 		case 'D': open_wikipedia_decade(); break;
@@ -217,8 +211,8 @@
 	function add_button_handler(id, handler) {
 		button(id).addEventListener('click', handler);
 	}
-	add_button_handler('zoom-out-btn', () => zoom(-1));
-	add_button_handler('zoom-in-btn', () => zoom(+1));
+	add_button_handler('zoom-out-btn', () => zoom(-0.5));
+	add_button_handler('zoom-in-btn', () => zoom(+0.5));
 	add_button_handler('back3-btn', () => year_bar.increment_year(-100));
 	add_button_handler('back2-btn', () => year_bar.increment_year(-10));
 	add_button_handler('back1-btn', () => year_bar.increment_year(-1));

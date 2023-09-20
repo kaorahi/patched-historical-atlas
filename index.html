@@ -20,7 +20,7 @@ const data = {
 new URLSearchParams(location.search).forEach((value, key) => {
 	switch (typeof data[key]) {
 	case "string": data[key] = value; break;
-	case "number": data[key] = value | 0; break;  // convert to number
+	case "number": data[key] = value - 0; break;  // convert to number
 	}
 	if (key === "hide_buttons") {
 		data[key] = value;
