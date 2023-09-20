@@ -70,14 +70,37 @@ function Map()
 		mp.setAttribute('src', 't/' + i + j + '/' + getMapTertYear(data.year, i, j) + '.png');
 		return mp;
 	}
-	function update_map()
-	{
+
+	function set_zoom_with_shift(new_zoom, shift) {
+		if (new_zoom === data.zoom) {
+			return false;
+		}
+		const [dx, dy] = shift || [];
+		if (shift) {
+		    scroll_internally(dx, dy);
+		}
+		data.zoom = new_zoom;
+		update_center();
+		if (shift) {
+			scroll_internally(- dx, - dy);
+		}
+		update();
+		return true;
+	}
+	this.set_zoom_with_shift = set_zoom_with_shift;
+
+	function update_center() {
 		// zoomが変化している場合、座標中心も変化する
 		if (prev_zoom !== data.zoom) {
 			data.map_x = Math.round(data.map_x * scale_for(data.zoom) / scale_for(prev_zoom));
 			data.map_y = Math.round(data.map_y * scale_for(data.zoom) / scale_for(prev_zoom));
 			prev_zoom = data.zoom;
 		}
+	}
+
+	function update_map()
+	{
+		update_center();
 
 		// マップの表示範囲を計算
 		let curX = data.map_x;
@@ -276,11 +299,14 @@ function Map()
 	}
 
 	function scroll(dx, dy) {
+		scroll_internally(dx, dy);
+		update_map();
+		update_info();
+	}
+	function scroll_internally(dx, dy) {
 		data.map_x += dx;
 		data.map_y += dy;
 		limit_map_center();
-		update_map();
-		update_info();
 	}
 
 	// https://github.com/kaorahi/lizgoban/releases/tag/v0.6.0-pre2
@@ -352,11 +378,11 @@ function Map()
 		infoLayer.style.width = w;
 		infoLayer.style.height = h;
 	};
-	this.update = function()
-	{
+	function update() {
 		update_map();
 		update_info();
 	};
+	this.update = update;
 	this.update_style = function()
 	{
 		for (let i = 0; i < visible_regions.length; i++) {

@@ -31,13 +31,23 @@
 	const max_zoom = 4;
 
 	function zoom(delta) {
-		const old_zoom = data.zoom;
-		data.zoom = Math.max(0, Math.min(data.zoom + delta, max_zoom));
-		if (data.zoom !== old_zoom) {
-			zoom_bar.update();
-			map.update();
-			update_button();
+		zoom_around(null, delta);
+	}
+	function zoom_around(point, delta) {
+		const new_zoom = Math.max(0, Math.min(data.zoom + delta, max_zoom));
+		if (new_zoom === data.zoom) {
+			return;
 		}
+		const shift = point ? vector_from_map_center(point) : null;
+		map.set_zoom_with_shift(new_zoom, shift);
+		zoom_bar.update();
+		update_button();
+	}
+	function vector_from_map_center(point) {
+		const [x, y] = point;
+		const x0 = screen_width * 0.5;
+		const y0 = (screen_height - year_bar.SIZE) * 0.5;
+		return [x - x0, y - y0];
 	}
 
 	function resize()
@@ -160,7 +170,8 @@
 	})(function(e)
 	{
 		let delta = e.wheelDelta ? e.wheelDelta : e.deltaY ? -e.deltaY : -e.detail;
-		zoom(Math.sign(delta) * 0.1);
+		const point = [e.clientX, e.clientY];
+		zoom_around(point, Math.sign(delta) * 0.1);
 	});
 
 	document.addEventListener('keydown', e => {
