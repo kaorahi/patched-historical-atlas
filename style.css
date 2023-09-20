@@ -121,6 +121,7 @@ img {
 	line-height: 0;
 	z-index: 10000;
 	touch-action: none;
+	opacity: 0.8;
 }
 #year-arrow-left,#year-arrow-right {
 	cursor: pointer;
@@ -129,7 +130,7 @@ img {
 #footer {
 	position: fixed;
 	color: #ddd;
-	background-color: #222;
+	background: rgba(0, 0, 0, 0.5);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

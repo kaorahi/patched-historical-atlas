@@ -50,7 +50,7 @@
 	function vector_from_map_center(point) {
 		const [x, y] = point;
 		const x0 = screen_width * 0.5;
-		const y0 = (screen_height - year_bar.SIZE) * 0.5;
+		const y0 = screen_height * 0.5;
 		return [x - x0, y - y0];
 	}
 
@@ -60,7 +60,7 @@
 
 		screen_width = body.offsetWidth;
 		screen_height = body.offsetHeight;
-		let canbas_h = screen_height - year_bar.SIZE;
+		let canbas_h = screen_height;
 
 		map.set_size(screen_width, canbas_h);
 
