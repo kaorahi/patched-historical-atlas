@@ -239,5 +239,49 @@
 	pause();
 	update_button();
 
+	// pinch zoom
+	let pinch_distance = null
+	let pinch_center = null
+	function pinch_start(e) {
+		if (e.touches.length !== 2) {
+			pinch_end();
+			return;
+		}
+		e.preventDefault();
+		pinch_distance = get_pinch_distance(e);
+		pinch_center = get_pinch_center(e);
+	}
+	function pinch_move(e) {
+		if (e.touches.length !== 2 || pinch_distance === null) {
+			pinch_end();
+			return;
+		}
+		e.preventDefault();
+		const old_distance = pinch_distance;
+		pinch_distance = get_pinch_distance(e);
+		if (old_distance > 0) {
+			const delta = Math.log(pinch_distance / old_distance) / Math.log(2);
+			zoom_around(pinch_center, delta);
+		}
+	}
+	function get_pinch_distance(e) {
+		const t0 = e.touches[0];
+		const t1 = e.touches[1];
+		return Math.sqrt((t0.clientX - t1.clientX)**2 + (t0.clientY - t1.clientY)**2);
+	}
+	function get_pinch_center(e) {
+		const t0 = e.touches[0];
+		const t1 = e.touches[1];
+		return [(t0.clientX + t1.clientX) * 0.5, (t0.clientY + t1.clientY) * 0.5];
+	}
+	function pinch_end() {
+		pinch_distance = null;
+	}
+	const infoLayer = document.getElementById('layer-info');
+	infoLayer.addEventListener('touchstart', pinch_start, {passive: false});
+	infoLayer.addEventListener('touchmove', pinch_move, {passive: false});
+	infoLayer.addEventListener('touchend', pinch_end);
+	infoLayer.addEventListener('touchcancel', pinch_end);
+
 	resize();
 });
