@@ -153,6 +153,14 @@
 		map.update();
 	});
 
+	Array.prototype.forEach.call(document.querySelectorAll('input[type="text"]'), elem => {
+		elem.addEventListener('keydown', e => {
+			switch (e.key) {
+			case 'Escape': elem.blur(); break;
+			}
+		});
+	});
+
 	window.addEventListener('resize', function()
 	{
         if (resize_timer !== -1) {
