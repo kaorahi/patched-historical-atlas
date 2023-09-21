@@ -69,6 +69,7 @@ function YearBar()
 	}
 
 	function increment_year(delta) {
+		stop_auto();
 		const old_year = data.year;
 		const new_year = data.year + delta;
 		const across_zero = (Math.sign(old_year) !== Math.sign(new_year));
@@ -101,6 +102,7 @@ function YearBar()
 		}
 	}
 	function onMouseDown(e) {
+		stop_auto();
 		let xpos = e.clientX;
 		if (xpos < _SIZE) {
 			data.year--;
@@ -172,6 +174,7 @@ function YearBar()
 		updated();
 	});
 	function goto_year(y) {
+		stop_auto();
 		push_url();
 		data.year = y;
 	}

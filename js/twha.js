@@ -154,6 +154,7 @@
 	});
 
 	Array.prototype.forEach.call(document.querySelectorAll('input[type="text"]'), elem => {
+		elem.addEventListener('focus', year_bar.stop_auto);
 		elem.addEventListener('keydown', e => {
 			switch (e.key) {
 			case 'Escape': elem.blur(); break;
