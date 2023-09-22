@@ -232,23 +232,43 @@
 		year_bar.stop_auto();
 		update_button();
 	}
-	function add_button_handler(id, handler) {
-		button(id).addEventListener('click', handler);
+	let btn_repeat_timer = null;
+	const btn_repeat_delay_millsec = 800;
+	const btn_repeat_interval_millsec = 200;
+	function cancel_button_repeat() {
+		if (btn_repeat_timer !== null) {
+			clearTimeout(btn_repeat_timer);
+			btn_repeat_timer = null;
+		}
 	}
-	add_button_handler('zoom-out-btn', () => zoom(-0.5));
-	add_button_handler('zoom-in-btn', () => zoom(+0.5));
-	add_button_handler('back3-btn', () => year_bar.increment_year(-100));
-	add_button_handler('back2-btn', () => year_bar.increment_year(-10));
-	add_button_handler('back1-btn', () => year_bar.increment_year(-1));
-	add_button_handler('play-btn', play);
-	add_button_handler('fwd1-btn', () => year_bar.increment_year(+1));
-	add_button_handler('fwd2-btn', () => year_bar.increment_year(+10));
-	add_button_handler('fwd3-btn', () => year_bar.increment_year(+100));
-	add_button_handler('pause-btn', pause);
-	add_button_handler('auto-sec', pause);  // for safety
-	add_button_handler('slow-btn', () => year_bar.accelerate_auto(0.5));
-	add_button_handler('fast-btn', () => year_bar.accelerate_auto(2));
-	add_button_handler('reset-btn', year_bar.reset_auto_speed);
+	cancel_button_repeat();
+	function set_button_repeat(handler) {
+		const delay = (btn_repeat_timer === null) ? btn_repeat_delay_millsec : btn_repeat_interval_millsec;
+		cancel_button_repeat();
+		btn_repeat_timer = setTimeout(handler, delay);
+	}
+	function add_button_handler(id, repeatable, handler) {
+		const btn = button(id);
+		const cancel_events = ['pointerup', 'pointerleave', 'pointerout', 'pointercancel'];
+		const on_fire = () => {handler(); repeatable && set_button_repeat(on_fire);};
+		const on_first_fire = e => {e.preventDefault(); on_fire()};
+		btn.addEventListener('pointerdown', on_first_fire, {passive: false});
+		cancel_events.forEach(ev => btn.addEventListener(ev, cancel_button_repeat));
+	}
+	add_button_handler('zoom-out-btn', true, () => zoom(-0.5));
+	add_button_handler('zoom-in-btn', true, () => zoom(+0.5));
+	add_button_handler('back3-btn', true, () => year_bar.increment_year(-100));
+	add_button_handler('back2-btn', true, () => year_bar.increment_year(-10));
+	add_button_handler('back1-btn', true, () => year_bar.increment_year(-1));
+	add_button_handler('play-btn', false, play);
+	add_button_handler('fwd1-btn', true, () => year_bar.increment_year(+1));
+	add_button_handler('fwd2-btn', true, () => year_bar.increment_year(+10));
+	add_button_handler('fwd3-btn', true, () => year_bar.increment_year(+100));
+	add_button_handler('pause-btn', false, pause);
+	add_button_handler('auto-sec', false, pause);  // for safety
+	add_button_handler('slow-btn', false, () => year_bar.accelerate_auto(0.5));
+	add_button_handler('fast-btn', false, () => year_bar.accelerate_auto(2));
+	add_button_handler('reset-btn', false, year_bar.reset_auto_speed);
 	pause();
 	update_button();
 
