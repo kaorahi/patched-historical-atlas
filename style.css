@@ -226,6 +226,7 @@ img {
 	left: 0;
 	width: 218px;
 	height: 100px;
+	pointer-events: none;
 }
 .region-title {
 	padding-bottom: 3px;
