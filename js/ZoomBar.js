@@ -28,19 +28,23 @@ function ZoomBar()
 	};
 
 	let is_dragging = false;
-	function on_mousedown(e) {
+	function on_mousedown(e)
+	{
 		is_dragging = true;
 		update_zoom(e);
 	}
-	function on_mousemove(e) {
+	function on_mousemove(e)
+	{
 		if (is_dragging) {
 			update_zoom(e);
 		}
 	}
-	function on_mouseup() {
+	function on_mouseup()
+	{
 		is_dragging = false;
 	}
-	function for_touch(handler) {
+	function for_touch(handler)
+	{
 		return e => {
 			if (e.touches.length === 1) {
 				handler(e.changedTouches[0])
@@ -59,7 +63,8 @@ function ZoomBar()
 	zoom_bar.addEventListener('touchend', on_mouseup);
 	zoom_bar.addEventListener('touchcancel', on_mouseup);
 
-	function update_zoom(e) {
+	function update_zoom(e)
+	{
 		// マウス座標からつまみ位置を求める
 		data.zoom = (121 - e.clientX) / 16;
 		zoom_limit();

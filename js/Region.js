@@ -56,7 +56,8 @@ function Region(a)
 			a[offset + 2] = a[offset + 0];
 		}
 	}
-	function period_bar_segment(len, years_per_em, height_em, color) {
+	function period_bar_segment(len, years_per_em, height_em, color)
+	{
 		const css = (key, val) => key + ': ' + val + ';';
 		const geom = [height_em, len / years_per_em, 0, 0];
 		const display = css('display', 'inline-block');

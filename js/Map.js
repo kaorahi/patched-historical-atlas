@@ -25,7 +25,8 @@ function Map()
 	let prev_year = -9999;
 
 
-	function scale_for(zoom) {
+	function scale_for(zoom)
+	{
 		return 2**(zoom - 1);
 	}
 
@@ -71,13 +72,14 @@ function Map()
 		return mp;
 	}
 
-	function set_zoom_with_shift(new_zoom, shift) {
+	function set_zoom_with_shift(new_zoom, shift)
+	{
 		if (new_zoom === data.zoom) {
 			return false;
 		}
 		const [dx, dy] = shift || [];
 		if (shift) {
-		    scroll_internally(dx, dy, true);
+			scroll_internally(dx, dy, true);
 		}
 		data.zoom = new_zoom;
 		update_center();
@@ -89,7 +91,8 @@ function Map()
 	}
 	this.set_zoom_with_shift = set_zoom_with_shift;
 
-	function update_center() {
+	function update_center()
+	{
 		// zoomが変化している場合、座標中心も変化する
 		if (prev_zoom !== data.zoom) {
 			data.map_x = Math.round(data.map_x * scale_for(data.zoom) / scale_for(prev_zoom));
@@ -202,11 +205,13 @@ function Map()
 		toast(data.year);
 	}
 
-	function wrap_within_range(u, min, width) {
+	function wrap_within_range(u, min, width)
+	{
 		// return v s.t. "u = v (mod width)" and "min <= v < min + width"
 		return min + positive_mod(u - min, width);
 	}
-	function positive_mod(n, divisor) {
+	function positive_mod(n, divisor)
+	{
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder
 		return ((n % divisor) + divisor) % divisor;
 	}
@@ -326,16 +331,19 @@ function Map()
 		data.map_y = Math.round(data.map_y);  // for safety
 	}
 
-	function get_element_y(id, key) {
+	function get_element_y(id, key)
+	{
 		return document.getElementById(id).getBoundingClientRect()[key] + window.pageYOffset;
 	}
 
-	function scroll(dx, dy) {
+	function scroll(dx, dy)
+	{
 		scroll_internally(dx, dy);
 		update_map();
 		update_info();
 	}
-	function scroll_internally(dx, dy, ignore_limit) {
+	function scroll_internally(dx, dy, ignore_limit)
+	{
 		data.map_x += dx;
 		data.map_y += dy;
 		if (!ignore_limit) {
@@ -347,7 +355,8 @@ function Map()
 	// から流用
 	let last_toast_message = null;
 	let last_toast_animation = null;
-	function toast(message) {
+	function toast(message)
+	{
 		if (message === last_toast_message) {return;}
 		last_toast_message = message;
 		last_toast_animation && last_toast_animation.finish();
@@ -358,12 +367,14 @@ function Map()
 	this.toast = toast;
 
 	let url_timer = null;
-	function update_url() {
+	function update_url()
+	{
 		// skip too frequent updates
 		clearTimeout(url_timer);
 		url_timer = setTimeout(update_url_now, 100);
 	}
-	function update_url_now() {
+	function update_url_now()
+	{
 		const recorded_types = ['string', 'number'];
 		const decimals = {zoom: 1};
 		const params = new URLSearchParams('');
@@ -413,7 +424,8 @@ function Map()
 		infoLayer.style.width = w;
 		infoLayer.style.height = h;
 	};
-	function update() {
+	function update()
+	{
 		update_map();
 		update_info();
 	};
@@ -450,11 +462,13 @@ function Map()
 	});
 
 	let prevPoint = null;
-	function touchedPoint(e) {
+	function touchedPoint(e)
+	{
 		const t = e.changedTouches[0];  // ignore multi-touch
 		return {x: t.clientX, y: t.clientY};
 	}
-	function onTouchStart(e) {
+	function onTouchStart(e)
+	{
 		if (e.touches.length !== 1) {
 			prevPoint = null;
 			return;
@@ -465,7 +479,8 @@ function Map()
 		mousedown_x = prevPoint.x;
 		mousedown_y = prevPoint.y;
 	}
-	function onTouchMove(e) {
+	function onTouchMove(e)
+	{
 		if (is_dragging_year || e.touches.length !== 1) {
 			prevPoint = null;
 			return;

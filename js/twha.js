@@ -30,10 +30,12 @@
 
 	const max_zoom = 4;
 
-	function zoom(delta) {
+	function zoom(delta)
+	{
 		zoom_around(null, delta);
 	}
-	function zoom_around(point, delta) {
+	function zoom_around(point, delta)
+	{
 		if (delta === 0) {  // avoid useless call on android
 			return;
 		}
@@ -47,7 +49,8 @@
 		zoom_bar.update();
 		update_button();
 	}
-	function vector_from_map_center(point) {
+	function vector_from_map_center(point)
+	{
 		const [x, y] = point;
 		const x0 = screen_width * 0.5;
 		const y0 = screen_height * 0.5;
@@ -202,16 +205,20 @@
 	// footer buttons
 	const buttons_in_pause = ['back3-btn', 'back2-btn', 'back1-btn', 'play-btn', 'fwd1-btn', 'fwd2-btn', 'fwd3-btn'];
 	const buttons_in_play = ['dummy1-btn', 'dummy2-btn', 'dummy3-btn', 'pause-btn', 'slow-btn', 'fast-btn', 'reset-btn'];
-	function button(id) {
+	function button(id)
+	{
 		return document.getElementById(id);
 	}
-	function set_buttons_state(ids, state) {
+	function set_buttons_state(ids, state)
+	{
 		ids.forEach(id => button(id).dataset.state = state);
 	}
-	function enable_button_if(bool, id) {
+	function enable_button_if(bool, id)
+	{
 		set_buttons_state([id], bool ? '' : 'disabled');
 	}
-	function update_button() {
+	function update_button()
+	{
 		if (year_bar.in_auto()) {
 			set_buttons_state(buttons_in_play, '');
 			set_buttons_state(buttons_in_pause, 'hidden');
@@ -223,32 +230,36 @@
 		enable_button_if(data.zoom < max_zoom, 'zoom-in-btn');
 		enable_button_if(data.zoom > 0, 'zoom-out-btn');
 		button('lang-select').value = data.lang;
-
 	}
-	function play() {
+	function play()
+	{
 		year_bar.start_auto();
 		update_button();
 	}
-	function pause() {
+	function pause()
+	{
 		year_bar.stop_auto();
 		update_button();
 	}
 	let btn_repeat_timer = null;
 	const btn_repeat_delay_millsec = 800;
 	const btn_repeat_interval_millsec = 200;
-	function cancel_button_repeat() {
+	function cancel_button_repeat()
+	{
 		if (btn_repeat_timer !== null) {
 			clearTimeout(btn_repeat_timer);
 			btn_repeat_timer = null;
 		}
 	}
 	cancel_button_repeat();
-	function set_button_repeat(handler) {
+	function set_button_repeat(handler)
+	{
 		const delay = (btn_repeat_timer === null) ? btn_repeat_delay_millsec : btn_repeat_interval_millsec;
 		cancel_button_repeat();
 		btn_repeat_timer = setTimeout(handler, delay);
 	}
-	function add_button_handler(id, repeatable, handler) {
+	function add_button_handler(id, repeatable, handler)
+	{
 		const btn = button(id);
 		const cancel_events = ['pointerup', 'pointerleave', 'pointerout', 'pointercancel'];
 		const on_fire = () => {handler(); repeatable && set_button_repeat(on_fire);};
@@ -276,7 +287,8 @@
 	// pinch zoom
 	let pinch_distance = null
 	let pinch_center = null
-	function pinch_start(e) {
+	function pinch_start(e)
+	{
 		if (e.touches.length !== 2) {
 			pinch_end();
 			return;
@@ -285,7 +297,8 @@
 		pinch_distance = get_pinch_distance(e);
 		pinch_center = get_pinch_center(e);
 	}
-	function pinch_move(e) {
+	function pinch_move(e)
+	{
 		if (e.touches.length !== 2 || pinch_distance === null) {
 			pinch_end();
 			return;
@@ -298,17 +311,20 @@
 			zoom_around(pinch_center, delta);
 		}
 	}
-	function get_pinch_distance(e) {
+	function get_pinch_distance(e)
+	{
 		const t0 = e.touches[0];
 		const t1 = e.touches[1];
 		return Math.sqrt((t0.clientX - t1.clientX)**2 + (t0.clientY - t1.clientY)**2);
 	}
-	function get_pinch_center(e) {
+	function get_pinch_center(e)
+	{
 		const t0 = e.touches[0];
 		const t1 = e.touches[1];
 		return [(t0.clientX + t1.clientX) * 0.5, (t0.clientY + t1.clientY) * 0.5];
 	}
-	function pinch_end() {
+	function pinch_end()
+	{
 		pinch_distance = null;
 	}
 	const infoLayer = document.getElementById('layer-info');

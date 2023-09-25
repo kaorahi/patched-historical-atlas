@@ -68,7 +68,8 @@ function YearBar()
 		cursor.style.left = ((yr + 200) * scale_width / 9400 + 26) + 'px';
 	}
 
-	function increment_year(delta) {
+	function increment_year(delta)
+	{
 		stop_auto();
 		const old_year = data.year;
 		const new_year = data.year + delta;
@@ -82,7 +83,8 @@ function YearBar()
 	};
 	this.update = update_cursor;
 
-	function updated() {
+	function updated()
+	{
 		update_cursor();
 		if (on_changed_handler) {
 			on_changed_handler();
@@ -96,12 +98,14 @@ function YearBar()
 		e.preventDefault();
 	});
 	year_bar.addEventListener('mousedown', onMouseDown);
-	function onMouseMove(e) {
+	function onMouseMove(e)
+	{
 		if (is_dragging_year) {
 			onMouseDown(e);
 		}
 	}
-	function onMouseDown(e) {
+	function onMouseDown(e)
+	{
 		stop_auto();
 		let xpos = e.clientX;
 		if (xpos < _SIZE) {
@@ -173,14 +177,16 @@ function YearBar()
 		}
 		updated();
 	});
-	function goto_year(y) {
+	function goto_year(y)
+	{
 		stop_auto();
 		push_url();
 		data.year = y;
 	}
 	const default_auto_millisec = 1000;
 	let auto_millisec = default_auto_millisec, auto_timer = null;
-	function start_auto() {
+	function start_auto()
+	{
 		stop_auto();
 		if (data.year >= MAX_YEAR) {
 			return;
@@ -196,22 +202,30 @@ function YearBar()
 		}, auto_millisec);
 		updated();
 	}
-	function stop_auto() {
+	function stop_auto()
+	{
 		clearTimeout(auto_timer);
 		auto_timer = null;
 		document.getElementById('auto-sec').innerText = '';
 		updated();
 	}
-	function toggle_auto() {
+	function toggle_auto()
+	{
 		auto_timer ? stop_auto() : start_auto();
 	}
-	function accelerate_auto(coef) {
+	function accelerate_auto(coef)
+	{
 		auto_millisec /= coef;
 		start_auto();
 	}
-	function reset_auto_speed() {auto_millisec = default_auto_millisec; start_auto();}
+	function reset_auto_speed()
+	{
+		auto_millisec = default_auto_millisec;
+		start_auto();
+	}
 
-	function with_update(func) {
+	function with_update(func)
+	{
 		return arg => {func(arg); updated();};
 	}
 	this.increment_year = with_update(increment_year);
