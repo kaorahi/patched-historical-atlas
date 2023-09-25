@@ -146,7 +146,7 @@ function Region(a)
 
 		let lang = lang_name_to_id(data.lang);
 		let html = '';
-		html += period_bar(region_period[0], region_period[1], 100, 0.2, 'red', 'blue', 'width: 100vw;');
+		html += period_bar(region_period[0], region_period[1], 100, 0.2, 'red', 'blue', 'white-space: nowrap;');
 		if (flag && data.zoom >= 1){
 			html += '<img src="sym/' + flag + '.png" alt="">';
 		}
