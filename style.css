@@ -190,7 +190,12 @@ img {
 	font-size: 16px;
 	font-weight: bold;
 	margin-right: 8px;
-	animation: blink 0.5s infinite alternate;
+	padding: 3px;
+	color: white;
+	background-color: black;
+}
+#auto-sec:empty {
+	display: none;
 }
 #auto-sec, #pause-btn * {
 	animation: blink 0.5s infinite alternate;
