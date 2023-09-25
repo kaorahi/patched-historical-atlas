@@ -77,7 +77,7 @@ img {
 
 #year {
 	text-align: right;
-	margin: 2px 32px;
+	margin: 2px 5px;
 	color: white;
 }
 #year-text {
@@ -97,7 +97,7 @@ img {
 }
 #year-sub {
 	text-align: right;
-	margin: 2px 32px;
+	margin: 2px 5px;
 	font-size: 14px;
 	color: white;
 }
