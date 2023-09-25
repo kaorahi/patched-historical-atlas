@@ -186,7 +186,10 @@ function YearBar()
 			return;
 		}
 		auto_millisec = Math.max(10, Math.min(auto_millisec, 1e+8))
-		document.getElementById('auto-sec').innerText = `${auto_millisec / 1000}sec ▶ `;
+		const auto_sec = auto_millisec / 1000;
+		const auto_sec_decimals = - Math.floor(Math.log(auto_sec) / Math.log(10));
+		const rounded_auto_sec = auto_sec >= 1 ? auto_sec : auto_sec.toFixed(auto_sec_decimals).replace(/0+$/, '');
+		document.getElementById('auto-sec').innerText = `${rounded_auto_sec}s ▶`;
 		auto_timer = setTimeout(() => {
 			increment_year(1);
 			data.year < MAX_YEAR ? start_auto() : stop_auto();
