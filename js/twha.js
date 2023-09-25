@@ -222,6 +222,8 @@
 		}
 		enable_button_if(data.zoom < max_zoom, 'zoom-in-btn');
 		enable_button_if(data.zoom > 0, 'zoom-out-btn');
+		button('lang-select').value = data.lang;
+
 	}
 	function play() {
 		year_bar.start_auto();
