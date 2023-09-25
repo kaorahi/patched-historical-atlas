@@ -4,19 +4,17 @@
 
 ## Demo
 
-[Live Demo](https://foxy-null.github.io/history-page/index.html?lang=en) by [Foxy-null](https://github.com/Foxy-null) ([github](https://github.com/Foxy-null/history-page))
+[Live demo of a forked version](https://foxy-null.github.io/history-page/index.html?lang=en) by [Foxy-null](https://github.com/Foxy-null) ([github](https://github.com/Foxy-null/history-page))
 
 ## What is this?
 
 This is just a modification to [World Historical Atlas](http://x768.com/w/twha.en) for some convenient features.
 
-* Support mouse drag on the year bar.
-* Enable bookmarking of the "current view" on your browser.
-* Add keyboard shortcuts for forward/backward animations, opening Wikipedia, etc.
+* Support smartphones and tablets. (swipe/pinch, font size)
+* Improve UI. (navigation buttons, autoplay, smooth zoom, ...)
 * Add period bars for regions and persons.
-* Add navigation buttons.
-* Enable smooth zoom.
-* Enable swipe scroll on touch devices.
+* Add keyboard shortcuts for forward/backward animations, opening Wikipedia, etc.
+* Enable bookmarking of the "current view" on your browser.
 
 ## Setup
 
@@ -28,7 +26,7 @@ This is just a modification to [World Historical Atlas](http://x768.com/w/twha.e
 * Unzip patched-historical-atlas-main.zip and copy all the files in patched-historical-atlas-main to the original twha5 (overwrite).
 * Open index.html in twha5 with Firefox, Chrome, etc. to start browsing the atlas.
 
-## After Setup
+## Keyboard Shortcuts
 
 See [HELP](HELP.md).
 
