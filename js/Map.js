@@ -140,6 +140,10 @@ function Map()
 			if (rev) {
 				vi = !vi;
 			}
+			if (maxW >= MAP_X) {
+				// all is visible when screen width >= map width
+				vi = true;
+			}
 			for (let j = 0; j < MAP_Y; j++) {
 				let idx = i + j * MAP_X;
 				let mpLand;
@@ -161,14 +165,21 @@ function Map()
 						dx += MAP_X;
 					}
 					let dy = j - py;
+					let x = dx * mapSize - mx;
+					let y = dy * mapSize - my;
 
-					mpLand.style.left = (dx * mapSize - mx) + 'px';
-					mpLand.style.top = (dy * mapSize - my) + 'px';
+					// for consistency with infoLayer
+					const map_width = mapSize * MAP_X;
+					const map_x_min = curWidth2 - map_width * 0.5;
+					x = wrap_within_range(x, map_x_min, map_width);
+
+					mpLand.style.left = x + 'px';
+					mpLand.style.top = y + 'px';
 					mpLand.setAttribute('width', mapSize);
 					mpLand.setAttribute('height', mapSize);
 
-					mpTert.style.left = (dx * mapSize - mx) + 'px';
-					mpTert.style.top = (dy * mapSize - my) + 'px';
+					mpTert.style.left = x + 'px';
+					mpTert.style.top = y + 'px';
 					mpTert.setAttribute('width', mapSize);
 					mpTert.setAttribute('height', mapSize);
 				} else {
@@ -186,6 +197,15 @@ function Map()
 		}
 		update_url();
 		toast(data.year);
+	}
+
+	function wrap_within_range(u, min, width) {
+		// return v s.t. "u = v (mod width)" and "min <= v < min + width"
+		return min + positive_mod(u - min, width);
+	}
+	function positive_mod(n, divisor) {
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder
+		return ((n % divisor) + divisor) % divisor;
 	}
 
 	// 全Regionから、指定した年に含まれるものだけを抽出
