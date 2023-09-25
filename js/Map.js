@@ -291,11 +291,20 @@ function Map()
 		}
 
 		// 上下限を超えないようにする
-		if (data.map_y < 0) {
-			data.map_y = 0;
-		} else if (data.map_y > maxY) {
-			data.map_y = maxY;
+		const head_bottom = get_element_y('head', 'bottom');
+		const foot_top = get_element_y('year-bar', 'top');
+		const map_y_min = curHeight2 - (head_bottom - 1);
+		const map_y_max = maxY + (curHeight2 - foot_top - 1);
+		if (map_y_min < map_y_max) {
+			data.map_y = Math.max(map_y_min, Math.min(data.map_y, map_y_max));
+		} else {
+			data.map_y = (map_y_min + map_y_max) * 0.5;
 		}
+		data.map_y = Math.round(data.map_y);  // for safety
+	}
+
+	function get_element_y(id, key) {
+		return document.getElementById(id).getBoundingClientRect()[key] + window.pageYOffset;
 	}
 
 	function scroll(dx, dy) {
