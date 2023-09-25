@@ -172,6 +172,9 @@ function Map()
 					const map_width = mapSize * MAP_X;
 					const map_x_min = curWidth2 - map_width * 0.5;
 					x = wrap_within_range(x, map_x_min, map_width);
+					if (x + mapSize * 0.5 > map_x_min + map_width) {
+						x = x - map_width;
+					}
 
 					mpLand.style.left = x + 'px';
 					mpLand.style.top = y + 'px';
