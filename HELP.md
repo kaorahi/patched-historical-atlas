@@ -23,7 +23,3 @@ Append `hide_buttons=yes` to URL as follows.
 
 * `.../index.html?hide_buttons=yes`
 * `.../index.html?...&...&hide_buttons=yes`
-
-## Zooming
-
-In most mobile browsers, double-tap to zoom in on the entire page, rather than using pinch-to-zoom, which will zoom in on the map itself.
