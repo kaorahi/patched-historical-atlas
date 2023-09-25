@@ -128,7 +128,7 @@ img {
 }
 
 #footer {
-	position: fixed;
+	position: absolute;
 	color: #ddd;
 	background: rgba(0, 0, 0, 0.5);
 	display: flex;
