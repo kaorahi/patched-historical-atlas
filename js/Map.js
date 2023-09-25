@@ -77,7 +77,7 @@ function Map()
 		}
 		const [dx, dy] = shift || [];
 		if (shift) {
-		    scroll_internally(dx, dy);
+		    scroll_internally(dx, dy, true);
 		}
 		data.zoom = new_zoom;
 		update_center();
@@ -303,10 +303,12 @@ function Map()
 		update_map();
 		update_info();
 	}
-	function scroll_internally(dx, dy) {
+	function scroll_internally(dx, dy, ignore_limit) {
 		data.map_x += dx;
 		data.map_y += dy;
-		limit_map_center();
+		if (!ignore_limit) {
+			limit_map_center();
+		}
 	}
 
 	// https://github.com/kaorahi/lizgoban/releases/tag/v0.6.0-pre2
