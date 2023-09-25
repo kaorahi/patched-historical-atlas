@@ -185,6 +185,7 @@ function YearBar()
 		if (data.year >= MAX_YEAR) {
 			return;
 		}
+		auto_millisec = Math.max(10, Math.min(auto_millisec, 1e+8))
 		document.getElementById('auto-sec').innerText = `${auto_millisec / 1000}sec ▶ `;
 		auto_timer = setTimeout(() => {
 			increment_year(1);
