@@ -16,10 +16,3 @@
 * `Ctrl-Shift-a` / `Esc`: toggle/stop auto
 * `Ctrl` + `(` / `|` / `)`: accelerate/reset/reduce auto speed
 * `?`: help
-
-## Hiding Buttons
-
-Append `hide_buttons=yes` to URL as follows.
-
-* `.../index.html?hide_buttons=yes`
-* `.../index.html?...&...&hide_buttons=yes`
