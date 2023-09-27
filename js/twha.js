@@ -191,6 +191,7 @@
 	});
 
 	document.addEventListener('keydown', e => {
+		if (e.target.tagName === 'INPUT') {return;}
 		switch (e.key) {
 		case 'z': case 'i': zoom(+0.5); break;
 		case 'Z': case 'x': case 'o': zoom(-0.5); break;

@@ -156,7 +156,7 @@ function YearBar()
 		onMouseDown(e.changedTouches[0]);
 	});
 	document.addEventListener('keydown', e => {
-		if (e.target.id === 'year-input') {return;}
+		if (e.target.tagName === 'INPUT') {return;}
 		const step = e.shiftKey ? 100 : e.ctrlKey ? 1 : 10;
 		switch (e.key) {
 		case 'ArrowLeft': case ',': case '<': increment_year(- step); break;
