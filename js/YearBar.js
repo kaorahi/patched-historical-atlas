@@ -14,11 +14,29 @@ function YearBar()
 	// conversion between year and x on year-bar-scale
 	const scale_year_min = -4000;
 	const scale_year_max = MAX_YEAR;
-	const sp = {
-		year_labels: [-4000, -3000, -2000, -1000, 0, 1000, 2000],
-		year_knots: [-4200, -1000, 2100],
-		r_knots: [0, 0.33, 1],
-	};
+	const scale_param = [
+		{ // original
+			year_labels: [-4000, -3000, -2000, -1000, 0, 1000, 2000],
+			year_knots: [-4200, -1000, 2100],
+			r_knots: [0, 0.33, 1],
+		},
+		{ // flat
+			year_labels: [-4000, -3000, -2000, -1000, 0, 1000, 2000],
+			year_knots: [-4200, 2300],
+			r_knots: [0, 1],
+		},
+		{ // very uneven
+			year_labels: [-1000, 0, 1000, 1500, 2000],
+			year_knots: [-4200, -1000, 0, 1000, 1500, 2050],
+			r_knots: [0, 0.03, 0.1, 0.3, 0.5, 1],
+		},
+	];
+	let sp = scale_param[0];
+	function cycle_scale_mode() {
+		const cur = scale_param.indexOf(sp);
+		sp = scale_param[(cur + 1) % scale_param.length];
+		draw_scale();
+	}
 	function year_from_x(x)
 	{
 		const r = x / scale_width;
@@ -49,6 +67,12 @@ function YearBar()
 		}
 		scale_width = width;
 		scale.setAttribute('width', width);
+		draw_scale();
+	}
+
+	function draw_scale()
+	{
+		const width = scale_width;
 		let ctx = scale.getContext('2d');
 		ctx.clearRect(0, 0, width, _SIZE);
 		ctx.fillStyle = '#e0e0e0';
@@ -71,7 +95,7 @@ function YearBar()
 		});
 
 		update_cursor();
-	};
+	}
 	function update_cursor()
 	{
 		data.year_clamp();
@@ -111,6 +135,12 @@ function YearBar()
 	function onMouseMove(e)
 	{
 		if (is_dragging_year) {
+			if (e.clientY < 0) {
+				// vertical drag beyond the top of the viewport
+				cycle_scale_mode();
+				is_dragging_year = false;
+				return;
+			}
 			onMouseDown(e);
 		}
 	}

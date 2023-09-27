@@ -16,3 +16,7 @@
 * `Ctrl-Shift-a` / `Esc`: toggle/stop auto
 * `Ctrl` + `(` / `|` / `)`: accelerate/reset/reduce auto speed
 * `?`: help
+
+## Hidden gesture for experimental feature
+
+* Drag the mouse vertically from the year bar beyond the top of the viewport to cycle through the available year scale modes.
