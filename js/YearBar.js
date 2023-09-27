@@ -148,7 +148,7 @@ function YearBar()
 		}
 		onMouseMove(e.changedTouches[0]);
 	});
-	year_bar.addEventListener('touchstart', e => {
+	scale.addEventListener('touchstart', e => {
 		if (e.touches.length !== 1) {
 			is_dragging_year = false;
 			return;
