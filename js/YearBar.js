@@ -11,6 +11,36 @@ function YearBar()
 	let scale_width = 1;
 	let on_changed_handler = null;
 
+	// conversion between year and x on year-bar-scale
+	const scale_year_min = -4000;
+	const scale_year_max = MAX_YEAR;
+	const sp = {
+		year_labels: [-4000, -3000, -2000, -1000, 0, 1000, 2000],
+		year_knots: [-4200, -1000, 2100],
+		r_knots: [0, 0.33, 1],
+	};
+	function year_from_x(x)
+	{
+		const r = x / scale_width;
+		const year = Math.round(piecewise_linear(r, sp.r_knots, sp.year_knots));
+		return year === 0 ? 1 : year;
+	}
+	function x_from_year(year)
+	{
+		const r = piecewise_linear(year, sp.year_knots, sp.r_knots);
+		return r * scale_width;
+	}
+	function piecewise_linear(input, from, to)
+	{
+		const k = from.findIndex(z => input < z);
+		return k > 0 ? linear(input, from[k - 1], from[k], to[k - 1], to[k]) :
+			k === 0 ? to[0] : to[to.length - 1];
+	}
+	function linear(input, from0, from1, to0, to1)
+	{
+		const s = (input - from0) / (from1 - from0);
+		return (1 - s) * to0 + s * to1;
+	}
 
 	this.set_width = function(width)
 	{
@@ -19,50 +49,33 @@ function YearBar()
 		}
 		scale_width = width;
 		scale.setAttribute('width', width);
-
 		let ctx = scale.getContext('2d');
 		ctx.clearRect(0, 0, width, _SIZE);
 		ctx.fillStyle = '#e0e0e0';
 		ctx.fillRect(0, 0, width, _SIZE);
 
-		let pattern = [
-			0, 0,
-			1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
-			1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 
-			1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0,
-			1, 1,
-		];
-		let length = pattern.length;
 		ctx.fillStyle = '#c0c0c0';
-		for (let i = 0; i < length; i++) {
-			if (pattern[i]) {
-				let x1 = width * i / length;
-				let x2 = width * (i + 1) / length;
-				ctx.fillRect(x1, 0, x2 - x1, _SIZE);
-			}
+		for (let year = scale_year_min; year < scale_year_max; year += 200) {
+			const x1 = x_from_year(year);
+			const x2 = x_from_year(year + 100);
+			ctx.fillRect(x1, 0, x2 - x1, _SIZE);
 		}
+
 		ctx.fillStyle = 'black';
 		ctx.font = '9px sans-serif';
 		ctx.textAlign = 'center';
 		ctx.textBaseline = 'middle';
-		for (let i = 0; i < 4; i++) {
-			ctx.fillText(String(-4000 + i * 1000), (2 + i * 10) * width / length, _SIZE / 2);
-		}
-		for (let i = 0; i < 6; i++) {
-			ctx.fillText(String(-500 + i * 500), (42 + i * 10) * width / length, _SIZE / 2);
-		}
+		sp.year_labels.forEach(year => {
+			const x = x_from_year(year);
+			ctx.fillText(String(year), x, _SIZE / 2);
+		});
 
 		update_cursor();
 	};
 	function update_cursor()
 	{
 		data.year_clamp();
-
-		let yr = data.year + 4000;
-		if (yr > 3000) {
-			yr = yr * 2 - 3000;
-		}
-		cursor.style.left = ((yr + 200) * scale_width / 9400 - 6) + 'px';
+		cursor.style.left = (x_from_year(data.year) - 6) + 'px';
 	}
 
 	function increment_year(delta)
@@ -105,14 +118,7 @@ function YearBar()
 	{
 		stop_auto();
 		let xpos = e.clientX;
-		if (0 <= xpos && xpos <= scale_width) {
-			let yr = xpos * 9400 / scale_width - 200;
-			if (yr > 3000) {
-				yr = (yr + 3000) / 2;
-			}
-			yr -= 4000;
-			data.year = Math.round(yr);
-		}
+		data.year = year_from_x(xpos);
 		updated();
 		is_dragging_year = true;
 	}
