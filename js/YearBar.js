@@ -5,14 +5,11 @@ function YearBar()
 	const _SIZE = 32;
 
 	const year_bar = document.getElementById('year-bar');
-	const arrow_l = document.getElementById('year-arrow-left');
-	const arrow_r = document.getElementById('year-arrow-right');
 	const scale = document.getElementById('year-bar-scale');
 	const cursor = document.getElementById('year-bar-cursor');
 	const year_text = document.getElementById('year-text');
 	let scale_width = 1;
 	let on_changed_handler = null;
-	this.SIZE = _SIZE;
 
 
 	this.set_width = function(width)
@@ -65,7 +62,7 @@ function YearBar()
 		if (yr > 3000) {
 			yr = yr * 2 - 3000;
 		}
-		cursor.style.left = ((yr + 200) * scale_width / 9400 + 26) + 'px';
+		cursor.style.left = ((yr + 200) * scale_width / 9400 - 6) + 'px';
 	}
 
 	function increment_year(delta)
@@ -108,12 +105,8 @@ function YearBar()
 	{
 		stop_auto();
 		let xpos = e.clientX;
-		if (xpos < _SIZE) {
-			data.year--;
-		} else if (xpos > scale_width + _SIZE) {
-			data.year++;
-		} else {
-			let yr = (xpos - 32) * 9400 / scale_width - 200;
+		if (0 <= xpos && xpos <= scale_width) {
+			let yr = xpos * 9400 / scale_width - 200;
 			if (yr > 3000) {
 				yr = (yr + 3000) / 2;
 			}
@@ -123,22 +116,6 @@ function YearBar()
 		updated();
 		is_dragging_year = true;
 	}
-	arrow_l.addEventListener('mouseenter', function(e)
-	{
-		arrow_l.src = 'img/arrow-left2.png';
-	});
-	arrow_l.addEventListener('mouseleave', function(e)
-	{
-		arrow_l.src = 'img/arrow-left.png';
-	});
-	arrow_r.addEventListener('mouseenter', function(e)
-	{
-		arrow_r.src = 'img/arrow-right2.png';
-	});
-	arrow_r.addEventListener('mouseleave', function(e)
-	{
-		arrow_r.src = 'img/arrow-right.png';
-	});
 	document.addEventListener('touchend', e => {is_dragging_year = false;});
 	document.addEventListener('touchcancel', e => {is_dragging_year = false;});
 	document.addEventListener('touchmove', e => {

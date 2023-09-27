@@ -67,7 +67,7 @@
 
 		map.set_size(screen_width, canbas_h);
 
-		year_bar.set_width(screen_width - year_bar.SIZE * 2);
+		year_bar.set_width(screen_width);
 
 		// workaround for android:
 		// 100vh includes the browser address bar

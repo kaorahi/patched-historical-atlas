@@ -119,9 +119,6 @@ img {
 	touch-action: none;
 	opacity: 0.8;
 }
-#year-arrow-left,#year-arrow-right {
-	cursor: pointer;
-}
 
 #footer {
 	position: absolute;
