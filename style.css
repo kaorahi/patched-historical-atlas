@@ -187,6 +187,15 @@ img {
 }
 @keyframes flash {0% {opacity: 0.3;} 100% {opacity: initial;}}
 
+[data-hidden="yes"], #control-box [data-hidden="yes"] {
+	opacity: 0;
+	touch-action: none;
+	pointer-events: none;
+}
+[data-hidden] {
+	transition: opacity 0.5s;
+}
+
 #auto-sec {
 	font-size: 16px;
 	font-weight: bold;

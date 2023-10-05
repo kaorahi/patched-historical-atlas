@@ -236,9 +236,10 @@
 		year_bar.stop_auto();
 		update_button();
 	}
-	function toggle_full_screen()
+	function toggle_full_screen(bool)
 	{
-		document.fullscreenElement ? document.exitFullscreen() : document.body.requestFullscreen();
+		const to_full = (bool === undefined) ? !document.fullscreenElement : bool;
+		to_full ? document.body.requestFullscreen() : document.exitFullscreen();
 	}
 	document.addEventListener('fullscreenchange', () => {
 		document.querySelector('#fullscr-btn span').innerText = document.fullscreenElement ? '⧉' : '⛶'
@@ -294,9 +295,10 @@
 	let pinch_type = null
 	function pinch_start(e)
 	{
-		if (e.touches.length !== 2) {
-			pinch_end();
-			return;
+		switch (e.touches.length) {
+		case 2: break;
+		case 3: toggle_immersion(); // fall thru
+		default: pinch_end(); return;
 		}
 		e.preventDefault();
 		pinch_distance = get_pinch_distance(e);
@@ -399,6 +401,22 @@
 	infoLayer.addEventListener('touchmove', pinch_move, {passive: false});
 	infoLayer.addEventListener('touchend', pinch_end);
 	infoLayer.addEventListener('touchcancel', pinch_end);
+
+	function toggle_immersion()
+	{
+		toggle_hiding_ui();
+		toggle_full_screen(is_hiding_ui);
+	}
+
+	// hide buttons etc.
+	let is_hiding_ui = false
+	function toggle_hiding_ui()
+	{
+		is_hiding_ui = !is_hiding_ui;
+		document.querySelectorAll('.hidable').forEach(elem => {
+			elem.dataset.hidden = is_hiding_ui ? 'yes' : ''
+		});
+	}
 
 	resize();
 });

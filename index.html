@@ -43,8 +43,8 @@ let is_dragging_year = false;
 <body oncontextmenu="return false;">
 <div id="head">
 <div id="control-box">
- <div class="head-btn" id="fullscr-btn"><span>⛶</span></div>
- <select id="lang-select">
+ <div id="fullscr-btn" class="head-btn hidable"><span>⛶</span></div>
+ <select id="lang-select" class="hidable">
   <option value="ja">日本語</option>
   <option value="en" selected>English</option>
   <option value="zh">中文</option>
@@ -58,10 +58,10 @@ let is_dragging_year = false;
 <div id="layer-land"></div>
 <div id="layer-tert"></div>
 <div id="layer-info"></div>
-<div id="year-bar">
+<div id="year-bar" class="hidable">
 <img id="year-bar-cursor" src="img/year-pos.png" alt="" draggable="false"><canvas id="year-bar-scale" height="32"></canvas>
 </div>
-<div id="footer">
+<div id="footer" class="hidable">
  <!-- always -->
  <div id="zoom-out-btn"><span>🔍-</span></div>
  <div id="zoom-in-btn"><span>🔍+</span></div>
