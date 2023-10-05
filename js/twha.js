@@ -341,8 +341,9 @@
 		const rule = [
 			{direction: [1, 0], speed: -0.02},
 			{direction: [0, 1], speed: -0.2},
-			{direction: [0.7, 0.7], speed: -2.0},
 		];
+		const edge_speed = -2.0;
+		const edge_px = 32;
 		const argmax = a => a.indexOf(Math.max(...a));
 		const inner_prod = (a, b) => a[0] * b[0] + a[1] * b[1];
 		const new_distance = get_pinch_distance(e);
@@ -359,7 +360,11 @@
 		const dc = [new_center[0] - pinch_center[0], new_center[1] - pinch_center[1]];
 		const prod = rule.map(h => inner_prod(h.direction, dc));
 		const k = argmax(prod.map(Math.abs));
-		const delta_year = Math.round(prod[k] * rule[k].speed);
+		const near_edge = (z, size) => (z < edge_px || size - edge_px < z);
+		const is_edge = (k === 0 && near_edge(new_center[1], window.innerHeight)) ||
+			  (k === 1 && near_edge(new_center[0], window.innerWidth));
+		const speed = is_edge ? edge_speed : rule[k].speed;
+		const delta_year = Math.round(prod[k] * speed);
 		if (Math.abs(delta_year) > 0) {
 			year_bar.increment_year(delta_year);
 			pinch_center = new_center;
