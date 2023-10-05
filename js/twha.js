@@ -7,7 +7,6 @@
     }
 })(function()
 {
-	const zoom_bar = new ZoomBar();
 	const lang_button = new LangButton();
 	const year_text = new YearText();
 	const year_bar = new YearBar();
@@ -46,7 +45,6 @@
 		}
 		const shift = point ? vector_from_map_center(point) : null;
 		map.set_zoom_with_shift(new_zoom, shift);
-		zoom_bar.update();
 		update_button();
 	}
 	function vector_from_map_center(point)
@@ -149,10 +147,6 @@
 	year_text.onchanged(function()
 	{
 		year_bar.update();
-		map.update();
-	});
-	zoom_bar.onchanged(function()
-	{
 		map.update();
 	});
 

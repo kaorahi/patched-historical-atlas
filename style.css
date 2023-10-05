@@ -41,19 +41,6 @@ img {
 	font-size: 12px;
 	cursor: pointer;
 }
-#scale-zoom {
-	position: absolute;
-	top: 8px;
-	left: 16px;
-	width: 148px;
-	height: 32px;
-	background: url(img/scale-zoom.png);
-}
-#scale-zoom-cursor {
-	position: absolute;
-	top: 8px;
-	left: 37px;
-}
 #layer-land,#layer-tert,#layer-info {
 	position: absolute;
 	top: 0;
