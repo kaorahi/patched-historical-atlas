@@ -236,6 +236,13 @@
 		year_bar.stop_auto();
 		update_button();
 	}
+	function toggle_full_screen()
+	{
+		document.fullscreenElement ? document.exitFullscreen() : document.body.requestFullscreen();
+	}
+	document.addEventListener('fullscreenchange', () => {
+		document.querySelector('#fullscr-btn span').innerText = document.fullscreenElement ? '⧉' : '⛶'
+	});
 	let btn_repeat_timer = null;
 	const btn_repeat_delay_millsec = 800;
 	const btn_repeat_interval_millsec = 200;
@@ -276,6 +283,8 @@
 	add_button_handler('slow-btn', false, () => year_bar.accelerate_auto(0.5));
 	add_button_handler('fast-btn', false, () => year_bar.accelerate_auto(2));
 	add_button_handler('reset-btn', false, year_bar.reset_auto_speed);
+	// Explicit "() =>" is needed here for the permission of fullscreen.
+	add_button_handler('fullscr-btn', false, () => toggle_full_screen());
 	pause();
 	update_button();
 
