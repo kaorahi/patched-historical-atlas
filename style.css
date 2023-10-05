@@ -3,6 +3,8 @@ html, body {
 	padding: 0;
 	height: 100%;
 	overflow: hidden;
+	user-select: none;
+	touch-action: none;
 }
 body {
 	background: url(img/back.png);
@@ -24,7 +26,6 @@ img {
 	display: flex;
 	justify-content: space-between;
 	overflow: hidden;
-	touch-action: none;
 	pointer-events: none;
 }
 #control-box {
@@ -32,6 +33,10 @@ img {
 	height: 100%;
 	display: flex;
 	align-items: center;
+	pointer-events: auto;
+}
+#control-box > * {
+	margin-left: 12px;
 }
 #year-box {
 	height: 100%;
@@ -42,15 +47,25 @@ img {
 	pointer-events: auto;
 }
 
-#control-box > div, #control-box > select {
-	margin-left: 12px;
-	padding: 4px;
+.head-btn {
+	display: inline-block;
+	font-size: 24px;
 	border: 1px solid gray;
 	border-radius: 5px;
 	background: white;
 	color: black;
-	text-align: center;
-	font-size: 12px;
+	height: 28pt;
+}
+div.head-btn:active {
+	background: gray;
+}
+.head-btn span {
+	height: 28pt;
+	min-width: 28pt;
+	line-height: 1.0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	cursor: pointer;
 	outline: none;
 	pointer-events: auto;
@@ -125,7 +140,45 @@ img {
 	bottom: 0px;
 	line-height: 0;
 	z-index: 10000;
-	touch-action: none;
+}
+
+#tool-dialog {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(min(800px, 80%));
+	max-height: 80%;
+	background-color: white;
+	font-size: 20px;
+	padding: 10px;
+	overflow: auto;
+	z-index: 29000;
+	touch-action: pan-x pan-y;
+}
+#dialog-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 28000;
+}
+#tool-dialog h2 {
+	display: flex;
+	justify-content: space-between;
+	margin: 0;
+}
+#settings {
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+#settings li {
+	margin: 2em 0;
 }
 
 #footer {
@@ -136,8 +189,6 @@ img {
 	align-items: center;
 	justify-content: space-between;
 	z-index: 10000;
-	touch-action: none;
-	user-select: none;
 }
 #footer {
 	top: 48px;
@@ -189,7 +240,6 @@ img {
 
 [data-hidden="yes"], #control-box [data-hidden="yes"] {
 	opacity: 0;
-	touch-action: none;
 	pointer-events: none;
 }
 [data-hidden] {

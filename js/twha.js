@@ -192,6 +192,7 @@
 	});
 
 	document.addEventListener('keydown', e => {
+		if (e.key === 'Escape') {close_tool_dialog();}
 		if (e.target.tagName === 'INPUT') {return;}
 		switch (e.key) {
 		case 'z': case 'i': zoom(+0.5); break;
@@ -249,7 +250,7 @@
 		to_full ? document.body.requestFullscreen() : document.exitFullscreen();
 	}
 	document.addEventListener('fullscreenchange', () => {
-		document.querySelector('#fullscr-btn span').innerText = document.fullscreenElement ? '⧉' : '⛶'
+		document.getElementById('fullscr-ckbox').checked = !!document.fullscreenElement;
 	});
 	let btn_repeat_timer = null;
 	const btn_repeat_delay_millsec = 800;
@@ -291,10 +292,35 @@
 	add_button_handler('slow-btn', false, () => year_bar.accelerate_auto(0.5));
 	add_button_handler('fast-btn', false, () => year_bar.accelerate_auto(2));
 	add_button_handler('reset-btn', false, year_bar.reset_auto_speed);
-	// Explicit "() =>" is needed here for the permission of fullscreen.
-	add_button_handler('fullscr-btn', false, () => toggle_full_screen());
 	pause();
 	update_button();
+
+	function set_tool_dialog(should_show)
+	{
+		const ids = ['tool-dialog', 'dialog-overlay'];
+		const display = should_show ? 'block' : 'none';
+		ids.forEach(id => document.getElementById(id).style.display = display);
+	}
+	function open_tool_dialog() {
+		set_tool_dialog(true);
+	}
+	function close_tool_dialog(e) {
+		set_tool_dialog(false);
+	}
+	document.getElementById('tool-btn').addEventListener('click', open_tool_dialog);
+	document.getElementById('close-tool-btn').addEventListener('click', close_tool_dialog);
+	document.getElementById('dialog-overlay').addEventListener('click', close_tool_dialog);
+	const ckbox_rule = [
+		// [id, onclick],
+		['fullscr-ckbox', toggle_full_screen],
+		['hide-ckbox', toggle_hiding_ui],
+	];
+	ckbox_rule.forEach(([id, onclick]) => {
+		const checkbox = document.getElementById(id);
+		checkbox.addEventListener('change', () => {
+			onclick(checkbox.checked);
+		});
+	});
 
 	// pinch zoom
 	let pinch_distance = null
@@ -414,12 +440,13 @@
 
 	// hide buttons etc.
 	let is_hiding_ui = false
-	function toggle_hiding_ui()
+	function toggle_hiding_ui(bool)
 	{
-		is_hiding_ui = !is_hiding_ui;
+		is_hiding_ui = (bool === undefined) ? !is_hiding_ui : bool;
 		document.querySelectorAll('.hidable').forEach(elem => {
 			elem.dataset.hidden = is_hiding_ui ? 'yes' : ''
 		});
+		document.getElementById('hide-ckbox').checked = is_hiding_ui;
 	}
 
 	resize();

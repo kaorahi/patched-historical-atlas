@@ -43,12 +43,7 @@ let is_dragging_year = false;
 <body oncontextmenu="return false;">
 <div id="head">
 <div id="control-box">
- <div id="fullscr-btn" class="head-btn hidable"><span>⛶</span></div>
- <select id="lang-select" class="hidable">
-  <option value="ja">日本語</option>
-  <option value="en" selected>English</option>
-  <option value="zh">中文</option>
- </select>
+<div id="tool-btn" class="head-btn"><span>≡</span></div>
 </div><!-- control-box -->
 <div id="year-box">
 <form id="year"><span id="auto-sec"></span><span id="year-text"></span><input type="text" id="year-input" value="" autocomplete="no"></form>
@@ -81,6 +76,26 @@ let is_dragging_year = false;
  <div id="slow-btn" data-state="hidden"><span>▶-</span></div>
  <div id="fast-btn" data-state="hidden"><span>▶+</span></div>
  <div id="reset-btn" data-state="hidden"><span>1×</span></div>
+</div>
+<div id="dialog-overlay"></div>
+<div id="tool-dialog">
+ <h2>Settings<div id="close-tool-btn" class="head-btn"><span>×</span></div>
+</h2>
+ <ul id="settings">
+  <li><label><input type="checkbox" id="fullscr-ckbox"> Fullscreen</label>
+  <li><label><input type="checkbox" id="hide-ckbox"> Hide Buttons</label>
+  <li><select id="lang-select" class="head-btn">
+       <option value="ja">日本語</option>
+       <option value="en" selected>English</option>
+       <option value="zh">中文</option>
+      </select> Language</li>
+ </ul>
+ <h2>Tips:</h2>
+ <ul>
+  <li>2-finger swipe: Year navigation (↔slow, ↕fast, along edge = faster)</li>
+  <li>3-finger tap: Toggle buttons &amp; fullscreen</li>
+  <li><a href="HELP.md" target="_blank">HELP</a></li>
+ </ul>
 </div>
 <div id="toast"><p id="toast_message"></p></div>
 </body>
