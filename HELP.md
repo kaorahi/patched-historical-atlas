@@ -17,6 +17,8 @@
 * `Ctrl` + `(` / `|` / `)`: accelerate/reset/reduce auto speed
 * `?`: help
 
-## Hidden gesture for experimental feature
+## Special Gestures
 
-* Drag the mouse vertically from the year bar beyond the top of the viewport to cycle through the available year scale modes.
+* Two-finger swipe for year navigation (horizontal = slow, vertical = fast, along edge = very fast). Ensure to keep fingers together, never spread them apart.
+* Three-finger tap to hide/show buttons.
+* Drag the mouse vertically from the year bar beyond the top of the viewport to cycle through the available year scale modes. (experimal)
