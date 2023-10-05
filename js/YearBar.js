@@ -31,20 +31,21 @@ function YearBar()
 			r_knots: [0, 0.03, 0.1, 0.3, 0.5, 1],
 		},
 	];
-	let sp = scale_param[0];
 	function cycle_scale_mode() {
-		const cur = scale_param.indexOf(sp);
-		sp = scale_param[(cur + 1) % scale_param.length];
+		data.year_bar_type = (data.year_bar_type + 1) % scale_param.length;
 		draw_scale();
+		updated();
 	}
 	function year_from_x(x)
 	{
+		const sp = scale_param[data.year_bar_type];
 		const r = x / scale_width;
 		const year = Math.round(piecewise_linear(r, sp.r_knots, sp.year_knots));
 		return year === 0 ? 1 : year;
 	}
 	function x_from_year(year)
 	{
+		const sp = scale_param[data.year_bar_type];
 		const r = piecewise_linear(year, sp.year_knots, sp.r_knots);
 		return r * scale_width;
 	}
@@ -89,6 +90,7 @@ function YearBar()
 		ctx.font = '9px sans-serif';
 		ctx.textAlign = 'center';
 		ctx.textBaseline = 'middle';
+		const sp = scale_param[data.year_bar_type];
 		sp.year_labels.forEach(year => {
 			const x = x_from_year(year);
 			ctx.fillText(String(year), x, _SIZE / 2);
