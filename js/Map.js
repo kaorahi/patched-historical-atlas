@@ -482,7 +482,7 @@ function Map()
 	}
 	function onTouchMove(e)
 	{
-		if (is_dragging_year || e.touches.length !== 1) {
+		if (is_dragging_year || e.touches.length !== 1 || prevPoint === null) {
 			prevPoint = null;
 			return;
 		}
