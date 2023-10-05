@@ -375,15 +375,20 @@ function Map()
 	}
 	function update_url_now()
 	{
-		const recorded_types = ['string', 'number'];
 		const decimals = {zoom: 1};
+		const converter = {
+			string: (key, val) => val,
+			number: (key, val) => val.toFixed(decimals[key] || 0),
+			boolean: (key, val) => val ? 'yes' : 'no',
+		};
+		const recorded_types = Object.keys(converter);
 		const params = new URLSearchParams('');
 		Object.keys(data).forEach(key => {
 			const value = data[key];
+			if (value === cheat_code[key]) {return;}
 			const type = typeof value;
 			if (recorded_types.includes(type)) {
-				const rounded = (type === 'number') ? value.toFixed(decimals[key] || 0) : value;
-				params.append(key, rounded);
+				params.append(key, converter[type](key, value));
 			}
 		});
 		const url = location.protocol + '//' + location.host + location.pathname + '?' + params.toString();

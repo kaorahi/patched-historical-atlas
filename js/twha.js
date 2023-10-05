@@ -319,6 +319,7 @@
 		const checkbox = document.getElementById(id);
 		checkbox.addEventListener('change', () => {
 			onclick(checkbox.checked);
+			map.update();
 		});
 	});
 
