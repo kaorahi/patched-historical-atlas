@@ -7,6 +7,13 @@
     }
 })(function()
 {
+	const touch_handler = {
+		touchstart: pinch_start,
+		touchmove: pinch_move,
+		touchend: pinch_end,
+		touchcancel: pinch_end,
+	};
+
 	const lang_button = new LangButton();
 	const year_text = new YearText();
 	const year_bar = new YearBar();
@@ -397,10 +404,7 @@
 		pinch_type = null;
 	}
 	const infoLayer = document.getElementById('layer-info');
-	infoLayer.addEventListener('touchstart', pinch_start, {passive: false});
-	infoLayer.addEventListener('touchmove', pinch_move, {passive: false});
-	infoLayer.addEventListener('touchend', pinch_end);
-	infoLayer.addEventListener('touchcancel', pinch_end);
+	Object.keys(touch_handler).forEach(key => infoLayer.addEventListener(key, touch_handler[key], {passive: false}));
 
 	function toggle_immersion()
 	{
