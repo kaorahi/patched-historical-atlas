@@ -35,13 +35,13 @@ img {
 }
 #year-box {
 	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
 	align-self: flex-end;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	pointer-events: auto;
 }
+
 #control-box > div, #control-box > select {
 	margin-left: 12px;
 	padding: 4px;
@@ -83,6 +83,11 @@ img {
 	color: white;
 }
 #year-text {
+	background: white;
+	color: black;
+	border: 1px solid gray;
+	border-radius: 5px;
+	padding: 1px 2px;
 	font-size: 16px;
 	font-weight: bold;
 	cursor: pointer;
@@ -100,8 +105,10 @@ img {
 #year-sub {
 	text-align: right;
 	margin: 0px 5px;
+	padding: 2px;
 	font-size: 14px;
-	color: white;
+	color: black;
+	backdrop-filter: blur(30px);
 }
 #year-bar-scale {
 	margin: 0;
@@ -119,7 +126,6 @@ img {
 	line-height: 0;
 	z-index: 10000;
 	touch-action: none;
-	opacity: 0.8;
 }
 
 #footer {
