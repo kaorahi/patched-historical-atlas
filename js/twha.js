@@ -436,19 +436,19 @@
 	function toggle_immersion()
 	{
 		toggle_hiding_ui();
-		toggle_full_screen(is_hiding_ui);
+		toggle_full_screen(data.hide_ui);
 	}
 
 	// hide buttons etc.
-	let is_hiding_ui = false
 	function toggle_hiding_ui(bool)
 	{
-		is_hiding_ui = (bool === undefined) ? !is_hiding_ui : bool;
+		data.hide_ui = (bool === undefined) ? !data.hide_ui : bool;
 		document.querySelectorAll('.hidable').forEach(elem => {
-			elem.dataset.hidden = is_hiding_ui ? 'yes' : ''
+			elem.dataset.hidden = data.hide_ui ? 'yes' : ''
 		});
-		document.getElementById('hide-ckbox').checked = is_hiding_ui;
+		document.getElementById('hide-ckbox').checked = data.hide_ui;
 	}
+	toggle_hiding_ui(!!data.hide_ui);
 
 	resize();
 });
