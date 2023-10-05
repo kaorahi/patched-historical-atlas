@@ -104,8 +104,7 @@ function YearText()
 
     function enter_year_text()
     {
-		year_text.style.display = '';
-		year_input.style.display = '';
+		hide_input();
 		let text = year_input.value;
 		// 年が直接入力された場合
 		if (text.match(/^-?\d{1,4}$/)) {
@@ -117,6 +116,12 @@ function YearText()
 			}
 		}
     }
+
+	function hide_input()
+	{
+		year_text.style.display = '';
+		year_input.style.display = '';
+	}
 
 	this.update = update_text;
 
@@ -139,7 +144,7 @@ function YearText()
         }, 100);
 	});
 
-	year_input.addEventListener('blur', enter_year_text);
+	year_input.addEventListener('blur', hide_input);
 	document.getElementById('year').addEventListener('submit', function(e) {
 	    enter_year_text();
 	    e.preventDefault();
