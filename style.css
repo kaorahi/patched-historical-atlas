@@ -20,26 +20,40 @@ img {
 	left: 0;
 	width: 100%;
 	height: 48px;
-	background: rgba(0, 0, 0, 0.5);
 	z-index: 10000;
-	touch-action: none;
+	display: flex;
+	justify-content: space-between;
 	overflow: hidden;
+	touch-action: none;
+	pointer-events: none;
 }
-.lang-menu {
-	position: absolute;
-	left: 180px;
+#control-box {
+	align-self: flex-start;
 	height: 100%;
 	display: flex;
 	align-items: center;
 }
-.lang-menu select {
-	padding: 2px 0;
+#year-box {
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	align-self: flex-end;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	pointer-events: auto;
+}
+#control-box > div, #control-box > select {
+	margin-left: 12px;
+	padding: 4px;
 	border: 1px solid gray;
+	border-radius: 5px;
 	background: white;
 	color: black;
 	text-align: center;
 	font-size: 12px;
 	cursor: pointer;
+	outline: none;
+	pointer-events: auto;
 }
 #layer-land,#layer-tert,#layer-info {
 	position: absolute;
@@ -63,8 +77,9 @@ img {
 }
 
 #year {
+	display: block;
 	text-align: right;
-	margin: 2px 5px;
+	margin: 0px 5px;
 	color: white;
 }
 #year-text {
@@ -84,7 +99,7 @@ img {
 }
 #year-sub {
 	text-align: right;
-	margin: 2px 5px;
+	margin: 0px 5px;
 	font-size: 14px;
 	color: white;
 }

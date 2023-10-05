@@ -42,16 +42,18 @@ let is_dragging_year = false;
 </head>
 <body oncontextmenu="return false;">
 <div id="head">
-<div class="lang-menu">
+<div id="control-box">
  <select id="lang-select">
   <option value="ja">日本語</option>
   <option value="en" selected>English</option>
   <option value="zh">中文</option>
  </select>
-</div>
+</div><!-- control-box -->
+<div id="year-box">
 <form id="year"><span id="auto-sec"></span><span id="year-text"></span><input type="text" id="year-input" value="" autocomplete="no"></form>
 <div id="year-sub"></div>
-</div>
+</div><!-- year-box -->
+</div><!-- head -->
 <div id="layer-land"></div>
 <div id="layer-tert"></div>
 <div id="layer-info"></div>
