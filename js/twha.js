@@ -291,6 +291,7 @@
 	// pinch zoom
 	let pinch_distance = null
 	let pinch_center = null
+	let pinch_type = null
 	function pinch_start(e)
 	{
 		if (e.touches.length !== 2) {
@@ -300,6 +301,7 @@
 		e.preventDefault();
 		pinch_distance = get_pinch_distance(e);
 		pinch_center = get_pinch_center(e);
+		pinch_type = null;
 	}
 	function pinch_move(e)
 	{
@@ -308,18 +310,73 @@
 			return;
 		}
 		e.preventDefault();
-		const old_distance = pinch_distance;
-		pinch_distance = get_pinch_distance(e);
-		if (old_distance > 0) {
-			const delta = Math.log(pinch_distance / old_distance) / Math.log(2);
+		two_finger_swipe(e) || pinch_zoom(e);
+	}
+
+	function pinch_zoom(e)
+	{
+		const min_distance = 100;
+		const min_distance_change = 10;
+		const new_distance = get_pinch_distance(e);
+		const is_pinch = (pinch_type === 'pinch') || (
+			new_distance > min_distance &&
+			Math.abs(new_distance - pinch_distance) > min_distance_change
+		);
+		if (!is_pinch) {
+			return;
+		}
+		if (pinch_distance > 0) {
+			const delta = Math.log(new_distance / pinch_distance) / Math.log(2);
 			zoom_around(pinch_center, delta);
 		}
+		pinch_distance = new_distance;
+		pinch_type = 'pinch';
 	}
+
+	function two_finger_swipe(e)
+	{
+		const max_distance = 200;
+		const max_distance_change = 20;
+		const min_center_change = 10;
+		const rule = [
+			{direction: [1, 0], speed: -0.02},
+			{direction: [0, 1], speed: -0.2},
+			{direction: [0.7, 0.7], speed: -2.0},
+		];
+		const argmax = a => a.indexOf(Math.max(...a));
+		const inner_prod = (a, b) => a[0] * b[0] + a[1] * b[1];
+		const new_distance = get_pinch_distance(e);
+		const new_center = get_pinch_center(e);
+		const distance_change = Math.abs(new_distance - pinch_distance);
+		const center_change = get_distance(pinch_center, new_center, 0, 1);
+		const is_swipe = pinch_type !== 'pinch' &&
+			new_distance < max_distance &&
+			distance_change < max_distance_change &&
+			(pinch_type === 'swipe' || center_change > min_center_change);
+		if (!is_swipe) {
+			return false;  // no side effect
+		}
+		const dc = [new_center[0] - pinch_center[0], new_center[1] - pinch_center[1]];
+		const prod = rule.map(h => inner_prod(h.direction, dc));
+		const k = argmax(prod.map(Math.abs));
+		const delta_year = Math.round(prod[k] * rule[k].speed);
+		if (Math.abs(delta_year) > 0) {
+			year_bar.increment_year(delta_year);
+			pinch_center = new_center;
+			pinch_distance = new_distance;
+			pinch_type = 'swipe';
+		}
+		return true;
+	}
+
 	function get_pinch_distance(e)
 	{
-		const t0 = e.touches[0];
-		const t1 = e.touches[1];
-		return Math.sqrt((t0.clientX - t1.clientX)**2 + (t0.clientY - t1.clientY)**2);
+		const t = e.touches;
+		return get_distance(t[0], t[1], 'clientX', 'clientY');
+	}
+	function get_distance(p, q, i, j)
+	{
+		return Math.sqrt((p[i] - q[i])**2 + (p[j] - q[j])**2);
 	}
 	function get_pinch_center(e)
 	{
@@ -330,6 +387,7 @@
 	function pinch_end()
 	{
 		pinch_distance = null;
+		pinch_type = null;
 	}
 	const infoLayer = document.getElementById('layer-info');
 	infoLayer.addEventListener('touchstart', pinch_start, {passive: false});
