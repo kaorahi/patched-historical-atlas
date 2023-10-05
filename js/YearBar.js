@@ -206,8 +206,8 @@ function YearBar()
 		}
 		auto_millisec = Math.max(10, Math.min(auto_millisec, 1e+8))
 		const auto_sec = auto_millisec / 1000;
-		const auto_sec_decimals = - Math.floor(Math.log(auto_sec) / Math.log(10));
-		const rounded_auto_sec = auto_sec >= 1 ? auto_sec : auto_sec.toFixed(auto_sec_decimals).replace(/0+$/, '');
+		const auto_sec_decimals = auto_sec >= 1 ? 1 : - Math.floor(Math.log(auto_sec) / Math.log(10));
+		const rounded_auto_sec = auto_sec >= 10 ? Math.round(auto_sec) : auto_sec.toFixed(auto_sec_decimals).replace(/[.]?0+$/, '');
 		document.getElementById('auto-sec').innerText = `${rounded_auto_sec}s ▶`;
 		auto_timer = setTimeout(() => {
 			increment_year(1);
