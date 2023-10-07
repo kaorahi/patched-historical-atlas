@@ -168,9 +168,13 @@ div.head-btn:active {
 	z-index: 28000;
 }
 #tool-dialog h2 {
-	display: flex;
-	justify-content: space-between;
 	margin: 0;
+}
+#close-tool-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 29900;
 }
 #settings {
 	list-style-type: none;
