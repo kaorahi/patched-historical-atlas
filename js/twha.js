@@ -307,6 +307,7 @@
 	function close_tool_dialog(e) {
 		set_tool_dialog(false);
 	}
+	document.getElementById('copy-tab-btn').addEventListener('click', () => {open_new_tab(); close_tool_dialog();});
 	document.getElementById('tool-btn').addEventListener('click', open_tool_dialog);
 	document.getElementById('close-tool-btn').addEventListener('click', close_tool_dialog);
 	document.getElementById('dialog-overlay').addEventListener('click', close_tool_dialog);
